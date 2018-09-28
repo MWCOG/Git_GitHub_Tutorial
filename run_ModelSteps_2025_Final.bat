@@ -1,21 +1,18 @@
 :: Z:\ModelRuns\fy19\V2.3_Development\run_ModelSteps_2025_Final.bat
 :: Version 2.3.75
-:: 11/3/2016 3:59:28 PM
+:: 9/28/2018 12:25:34 PM
 
 
 :: Version 2.3 TPB Travel Model on 3722 TAZ System
 
 set _year_=2025
-set _alt_=Ver2.3.70_2025_Final
+set _alt_=Ver2.3.75_2025_Final
 :: Maximum number of user equilibrium iterations used in traffic assignment
 :: User should not need to change this.  Instead, change _relGap_ (below)
 set _maxUeIter_=1000
 
-:: Set transit constraint path and files
-:: Current year used to set the constraint = 2020
-:: For years before constraint year:  set _tcpath_=<blank>
-:: For years after  constraint year:  set _tcpath_=..\2020_final
-set _tcpath_=..\2020_final
+:: Not set transit constraint path and files
+set _tcpath_=
 
 
 
@@ -49,7 +46,7 @@ call Transit_Skim_All_Modes_Parallel.bat %1
 call Transit_Fare.bat           %1
 call Trip_Generation.bat        %1
 call Trip_Distribution.bat      %1
-call Mode_Choice_TC_V23_Parallel.bat            %1
+call Mode_Choice_Parallel.bat      %1
 call Auto_Driver.bat            %1
 call Time-of-Day.bat            %1
 call Highway_Assignment_Parallel.bat     %1
@@ -64,7 +61,7 @@ call Transit_Skim_All_Modes_Parallel.bat %1
 call Transit_Fare.bat           %1
 call Trip_Generation.bat        %1
 call Trip_Distribution.bat      %1
-call Mode_Choice_TC_V23_Parallel.bat            %1
+call Mode_Choice_Parallel.bat      %1
 call Auto_Driver.bat            %1
 call Time-of-Day.bat            %1
 call Highway_Assignment_Parallel.bat     %1
@@ -81,7 +78,7 @@ call Transit_Skim_All_Modes_Parallel.bat %1
 call Transit_Fare.bat           %1
 call Trip_Generation.bat        %1
 call Trip_Distribution.bat      %1
-call Mode_Choice_TC_V23_Parallel.bat            %1
+call Mode_Choice_Parallel.bat      %1
 call Auto_Driver.bat            %1
 call Time-of-Day.bat            %1
 call Highway_Assignment_Parallel.bat     %1
@@ -98,7 +95,7 @@ call Transit_Skim_All_Modes_Parallel.bat %1
 call Transit_Fare.bat           %1
 call Trip_Generation.bat        %1
 call Trip_Distribution.bat      %1
-call Mode_Choice_TC_V23_Parallel.bat            %1
+call Mode_Choice_Parallel.bat      %1
 call Auto_Driver.bat            %1
 call Time-of-Day.bat            %1
 call Highway_Assignment_Parallel.bat     %1
