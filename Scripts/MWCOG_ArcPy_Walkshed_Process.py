@@ -51,6 +51,8 @@ The table below summarizes which versions of ArcGIS and Cube are compatible
     11)ArcGIS  9.3   CUBE 6.0.2      (w/o ArcGIS runtime)       *NO*      FAILED
 
 # Cube with ArcGIS Engine Runtime (no ArcGIS software)
+       
+    8) No ArcGIS     CUBE 6.4.4      10.6       (Included)      YES       Tested OK
     7) No ArcGIS     CUBE 6.4.3      10.5       (Included)      YES       Tested OK
     6) No ArcGIS     CUBE 6.4.2      10.4       (Included)      YES       Tested OK. Somewhat unstable
     5) No ArcGIS     CUBE 6.4.1      10.3       (Included)      YES       Tested OK
@@ -62,7 +64,7 @@ The table below summarizes which versions of ArcGIS and Cube are compatible
 '''
 
 ## Version is a suffix to TPB Model Version
-__version__ = '2.3.58'
+__version__ = '2.3.76'
 
 __all__ = [
     ]
@@ -79,9 +81,13 @@ __all__ = [
 #
 import sys, csv, operator
 
-# include paths for ArcGIS 10.3, 10.4 installations
+# include paths for ArcGIS Software/Engine 10.3, 10.4, 10.5, 10.6 installations
 # use forward slashes '/' in place of Windows default backward slashes '\',
 # otherwise use two backward slashes '\\'
+
+# include paths for ArcGIS 10.6 full installation
+sys.path.append("C:\\Program Files (x86)\\ArcGIS\\Desktop10.6\\arcpy")
+sys.path.append("C:\\Program Files (x86)\\ArcGIS\\Desktop10.6\\bin")
 
 # include paths for ArcGIS 10.5 full installation
 sys.path.append("C:\\Program Files (x86)\\ArcGIS\\Desktop10.5\\arcpy")
@@ -103,6 +109,10 @@ sys.path.append("C:\\Program Files (x86)\\ArcGIS\\Desktop10.2\\bin")
 sys.path.append("C:\\Program Files (x86)\\ArcGIS\\Desktop10.1\\arcpy")
 sys.path.append("C:\\Program Files (x86)\\ArcGIS\\Desktop10.1\\bin")
 
+
+# include paths for ArcGIS 10.6 runtime installation
+sys.path.append("C:\\Program Files (x86)\\ArcGIS\\Engine10.6\\arcpy")
+sys.path.append("C:\\Program Files (x86)\\ArcGIS\\Engine10.6\\bin")
 
 # include paths for ArcGIS 10.5 runtime installation
 sys.path.append("C:\\Program Files (x86)\\ArcGIS\\Engine10.5\\arcpy")

@@ -13,6 +13,7 @@ SET WalkshedDirName=Transit_Walksheds_GIS
 SET python_bindir=0
 
 :: Look in C drive
+IF %python_bindir%==0  CALL:CheckPythonPath  C:\Python27\ArcGIS10.6  python_bindir
 IF %python_bindir%==0  CALL:CheckPythonPath  C:\Python27\ArcGIS10.5  python_bindir
 IF %python_bindir%==0  CALL:CheckPythonPath  C:\Python27\ArcGIS10.4  python_bindir
 IF %python_bindir%==0  CALL:CheckPythonPath  C:\Python27\ArcGIS10.3  python_bindir
@@ -21,7 +22,8 @@ IF %python_bindir%==0  CALL:CheckPythonPath  C:\Python27\ArcGIS10.1  python_bind
 IF %python_bindir%==0  CALL:CheckPythonPath  C:\Python26\ArcGIS10.0  python_bindir
 
 :: Look in D drive
-IF %python_bindir%==0  CALL:CheckPythonPath  D:\Python27\ArcGIS10.4  python_bindir
+IF %python_bindir%==0  CALL:CheckPythonPath  D:\Python27\ArcGIS10.6  python_bindir
+IF %python_bindir%==0  CALL:CheckPythonPath  D:\Python27\ArcGIS10.5  python_bindir
 IF %python_bindir%==0  CALL:CheckPythonPath  D:\Python27\ArcGIS10.4  python_bindir
 IF %python_bindir%==0  CALL:CheckPythonPath  D:\Python27\ArcGIS10.3  python_bindir
 IF %python_bindir%==0  CALL:CheckPythonPath  D:\Python27\ArcGIS10.2  python_bindir
@@ -29,7 +31,8 @@ IF %python_bindir%==0  CALL:CheckPythonPath  D:\Python27\ArcGIS10.1  python_bind
 IF %python_bindir%==0  CALL:CheckPythonPath  D:\Python26\ArcGIS10.0  python_bindir
 
 :: Look in E drive
-IF %python_bindir%==0  CALL:CheckPythonPath  E:\Python27\ArcGIS10.4  python_bindir
+IF %python_bindir%==0  CALL:CheckPythonPath  E:\Python27\ArcGIS10.6  python_bindir
+IF %python_bindir%==0  CALL:CheckPythonPath  E:\Python27\ArcGIS10.5  python_bindir
 IF %python_bindir%==0  CALL:CheckPythonPath  E:\Python27\ArcGIS10.4  python_bindir
 IF %python_bindir%==0  CALL:CheckPythonPath  E:\Python27\ArcGIS10.3  python_bindir
 IF %python_bindir%==0  CALL:CheckPythonPath  E:\Python27\ArcGIS10.2  python_bindir
