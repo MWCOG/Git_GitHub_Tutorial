@@ -51,8 +51,8 @@ The table below summarizes which versions of ArcGIS and Cube are compatible
     11)ArcGIS  9.3   CUBE 6.0.2      (w/o ArcGIS runtime)       *NO*      FAILED
 
 # Cube with ArcGIS Engine Runtime (no ArcGIS software)
-       
-    8) No ArcGIS     CUBE 6.4.4      10.6       (Included)      YES       Tested OK
+    9) No ArcGIS     CUBE 6.4.5 beta 10.6       (Included)      YES       Tested OK       
+    8) No ArcGIS     CUBE 6.4.4      10.6       (Included)      YES       Tested OK. But FAILED at Trip Generation.
     7) No ArcGIS     CUBE 6.4.3      10.5       (Included)      YES       Tested OK
     6) No ArcGIS     CUBE 6.4.2      10.4       (Included)      YES       Tested OK. Somewhat unstable
     5) No ArcGIS     CUBE 6.4.1      10.3       (Included)      YES       Tested OK
