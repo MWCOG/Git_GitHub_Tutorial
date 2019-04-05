@@ -1,5 +1,8 @@
 ;;  Average the restrained speeds on highway links using MSA
 ;;  8/5/2011 Corrected NTPCTadt factor from 35.0 to 15.0.
+;;  2/15/2019 RQN  Revised line 40 to fix a bug of the model using <ITER>_HWY.net 
+;;                  incorrectly when the model crash at a certain step
+
 VDF_File  ='..\support\hwy_assign_Conical_VDF.s'        ;;     Volume Delay Functions file
 Iter ='%_iter_%'
 Prev ='%_prev_%'

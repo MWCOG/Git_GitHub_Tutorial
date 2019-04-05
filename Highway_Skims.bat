@@ -2,6 +2,12 @@ CD %1
 
 REM  Highway Skims
 
+:: RQN 02-04-2019   Add two lines 8-9 to fix a bug of the model using <ITER>_HWY.net 
+::                  incorrectly when the model crash at a certain step
+
+if exist temp1_%_iter_%_HWY.net copy temp1_%_iter_%_HWY.net %_iter_%_HWY.net
+if exist temp2_%_iter_%_HWY.net copy temp2_%_iter_%_HWY.net %_iter_%_HWY.net
+
 if exist voya*.*  del voya*.*
 if exist %_iter_%_Highway_Skims_am.rpt  del %_iter_%_Highway_Skims_am.rpt
 start /w Voyager.exe  ..\scripts\Highway_Skims_am.s /start -Pvoya -S..\%1

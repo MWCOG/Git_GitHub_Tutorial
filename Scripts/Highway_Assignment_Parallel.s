@@ -77,7 +77,9 @@ Environment Variables (set in the "run_ModelSteps" batch file)
 
 2016-05-10 DNQ  Modified the PRINT LIST for the @prd@CHK.LKLOOP files: "TIMEPEN(5.2)"" becomes "LI.TIMEPEN(5.2)"" 
                 to fix the error ? in the printed file (Cube 6.4.1 warns, not Cube 6.1 SP1)
-2017-03-16 DNQ  Modifiied to prohibit airport trips using HOV3+ and correct LIMIT code 1 ->0
+2017-03-16 DNQ  Modified to prohibit airport trips using HOV3+ and correct LIMIT code 1 ->0
+2019-04-15 RQN  Revised line 1923 to fix a bug of the model using <ITER>_HWY.net
+                incorrectly when the model crash at a certain step
 */
 
 /*  **** Set up tokens in Voyager Pilot step ***** */
@@ -1918,7 +1920,7 @@ RUN PGM=HWYNET     ; Summarize 24-hour VMT of current AM, PM, MD & OP assignment
   FILEI NETI[2]=temp_MD.net
   FILEI NETI[3]=temp_PM.net
   FILEI NETI[4]=temp_NT.net
-  FILEO NETO   =%_iter_%_HWY.NET,
+  FILEO NETO   =temp1_%_iter_%_HWY.NET,
              EXCLUDE=OLDVOL1,NEWVOL1,OLDVOL2,NEWVOL2,OLDVOL3,NEWVOL3,
                      OLDVOL4,NEWVOL4,OLDVOL5,NEWVOL5,
                      OLDSPD1,OLDSPD2,OLDSPD3,OLDSPD4,OLDSPD5,%_iter_%24VMT,
