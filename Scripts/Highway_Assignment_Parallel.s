@@ -80,6 +80,8 @@ Environment Variables (set in the "run_ModelSteps" batch file)
 2017-03-16 DNQ  Modified to prohibit airport trips using HOV3+ and correct LIMIT code 1 ->0
 2019-04-15 RQN  Revised line 1923 to fix a bug of the model using <ITER>_HWY.net
                 incorrectly when the model crash at a certain step
+2019-05-20 RQN	Modified to fix the misleading subnodes names by 
+                separating AM and MD subnodes to AM, PM, MD, and NT subnodes
 */
 
 /*  **** Set up tokens in Voyager Pilot step ***** */
@@ -656,7 +658,7 @@ VDF_File  = '..\support\hwy_assign_Conical_VDF.s'            ;;     Volume Delay
 ;;;*****************************************************************************
 
   RUN PGM=HIGHWAY  ; NonHOV3+ traffic assignment
-distributeIntrastep processId='MD', ProcessList=%MDsubnode%
+distributeIntrastep processId='PM', ProcessList=%PMsubnode%
   FILEI NETI     =  @INPNET@                          ; TP+ Network
   ;
   ;  The input trip table has 6 Vehicle Tables:
@@ -912,7 +914,7 @@ ENDRUN
 ;;Turnpen  = 'inputs\turnpen.pen'                ; turn penalty file
 
   RUN PGM=HIGHWAY  ; HOV3+    traffic assignment
-distributeIntrastep processId='MD', ProcessList=%MDsubnode%
+distributeIntrastep processId='PM', ProcessList=%PMsubnode%
   FILEI NETI     = TEMP1_@PRD@.NET                    ; TP+ Network
   ;;  TURNPENI = @TURNPEN@                         ; HOV turn penalty at Gallows Road Ramp
   ;
@@ -1158,7 +1160,7 @@ Wait4Files Files=AM1.script.end, CheckReturnCode=T, PrintFiles=Merge, DelDistrib
 ;;;         All 6 trip tables are assigned together.
 ;;;*****************************************************************************
 
-DistributeMULTISTEP ProcessID='AM', ProcessNum=1
+DistributeMULTISTEP ProcessID='MD', ProcessNum=1
             ; Off-Peak Period
 PRD    =  'MD'         ;
 PCTADT =   17.7        ; %_MDPF_%  Midday PHF (% of traffic in pk hr of period)
@@ -1167,7 +1169,7 @@ CAPFAC=1/(PCTADT/100)                  ; Capacity Factor = 1/(PCTADT/100)
 ; Turnpen  = 'inputs\turnpen.pen'        ; Turn penalty
 
   RUN PGM=HIGHWAY  ; Off-peak (midday & evening) traffic assignment
-distributeIntrastep processId='AM', ProcessList=%AMsubnode%
+distributeIntrastep processId='MD', ProcessList=%MDsubnode%
 FILEI NETI     = @INPNET@                          ; TP+ Network
   ;; TURNPENI = @TURNPEN@                         ; HOV turn penalty at Gallows Road Ramp
   ;
@@ -1430,7 +1432,7 @@ CAPFAC=1/(PCTADT/100)                  ; Capacity Factor = 1/(PCTADT/100)
 ; Turnpen  = 'inputs\turnpen.pen'        ; Turn penalty
 
   RUN PGM=HIGHWAY  ; Off-peak (midday & evening) traffic assignment
-distributeIntrastep processId='MD', ProcessList=%MDsubnode%
+distributeIntrastep processId='NT', ProcessList=%NTsubnode%
 FILEI NETI     = @INPNET@                          ; TP+ Network
   ;; TURNPENI = @TURNPEN@                         ; HOV turn penalty at Gallows Road Ramp
   ;
@@ -1683,7 +1685,7 @@ ENDPHASE
 
 ENDRUN
 
-Wait4Files Files=AM1.script.end, CheckReturnCode=T, PrintFiles=Merge, DelDistribFiles=T
+Wait4Files Files=MD1.script.end, CheckReturnCode=T, PrintFiles=Merge, DelDistribFiles=T
 
 ;
 ; END OF MIDDAY and OFF PEAK ASSIGNMENT
