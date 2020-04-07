@@ -25,6 +25,7 @@
 
 ; 3/13/13  applied 15% and 17% reduction on Loudoun County P,A Trip rates respectively
 ; 3/14/13  fixed conditions where the  final non-motor P/A share could exceed 1
+; 9/10/19  removed non-work production adjustments for PG County
 ;============================================================================================
 ;Parameters and file specifications:
 ;=================================================================
@@ -425,7 +426,7 @@ LOOKUP NAME=P_JurAdj,   ;
 R="      0,  1.00,  0.85,  1.20,  1.00,  1.00,",  ;;dc  NONCORE
   "      1,  1.00,  0.85,  1.20,  1.00,  1.00,",  ;;dc  CORE
   "     10,  0.95,  1.00,  1.05,  1.00,  1.00,",  ;;mtg
-  "     20,  1.00,  0.88,  0.97,  1.00,  1.00,",  ;;pg
+  "     20,  1.00,  1.00,  1.00,  1.00,  1.00,",  ;;pg      ;; 9/10/19 HBS/HBO changed from 0.88/0.97 to 1.00/1.00
   "     30,  1.00,  1.11,  1.08,  1.00,  1.00,",  ;;arl NONCORE
   "     31,  1.00,  1.11,  1.08,  1.00,  1.00,",  ;;arl CORE
   "     40,  1.00,  1.00,  1.00,  1.00,  1.00,",  ;;alx
