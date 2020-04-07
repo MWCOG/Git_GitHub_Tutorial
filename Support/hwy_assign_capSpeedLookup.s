@@ -16,10 +16,10 @@ SPDCAP CAPACITY[61]=1000 1000 1000 1000 2000  2000  ; rmp
 ;
 ;            areatp > 1    2    3    4    5    6   fac type
 ;                    ---  ---  ---  ---  ---  ----    V
-SPDCAP    SPEED[01]= 15   15   20   25   30   35    ; cen
-SPDCAP    SPEED[11]= 55   55   60   60   65   65    ; fwy
-SPDCAP    SPEED[21]= 35   35   45   45   50   50    ; maj
-SPDCAP    SPEED[31]= 35   35   40   40   40   45    ; min
-SPDCAP    SPEED[41]= 30   30   30   35   35   35    ; col
-SPDCAP    SPEED[51]= 45   45   50   50   50   55    ; xwy
-SPDCAP    SPEED[61]= 20   20   30   30   35   50    ; rmp
+SPDCAP    SPEED[01]= 17   17   23   29   35   40    ; cen
+SPDCAP    SPEED[11]= 63   63   69   69   75   75    ; fwy
+SPDCAP    SPEED[21]= 40   40   52   52   58   58    ; maj
+SPDCAP    SPEED[31]= 40   40   46   46   46   52    ; min
+SPDCAP    SPEED[41]= 35   35   35   40   40   40    ; col
+SPDCAP    SPEED[51]= 52   52   58   58   58   63    ; xwy
+SPDCAP    SPEED[61]= 23   23   35   35   40   58    ; rmp
