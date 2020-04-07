@@ -82,6 +82,13 @@ Environment Variables (set in the "run_ModelSteps" batch file)
                 incorrectly when the model crash at a certain step
 2019-05-20 RQN	Modified to fix the misleading subnodes names by 
                 separating AM and MD subnodes to AM, PM, MD, and NT subnodes
+2019-08-27 RJM Script has been modified to DISALLOW bridge penalties from being used within the traffic assigment process
+           for example:  This line command:         LW.SOV@PRD@IMP = TIME  + LI.TIMEPEN   + (LW.SOV@PRD@TOLL/100.0)* SV@PRD@EQM ;SOV   IMP
+                         has been changed to this:  LW.SOV@PRD@IMP = TIME                 + (LW.SOV@PRD@TOLL/100.0)* SV@PRD@EQM ;SOV   IMP
+           The change affected 28 line commands in all
+
+
+
 */
 
 /*  **** Set up tokens in Voyager Pilot step ***** */
@@ -339,13 +346,13 @@ PHASE=ILOOP
    IF (i=FirstZone)
      LINKLOOP
        ; Initial Iteration LINK IMPEDANCE (HIGHWAY TIME + Equiv.Toll/Time) by vehicle type here:
-         LW.SOV@PRD@IMP = TIME    + LI.TIMEPEN + (LW.SOV@PRD@TOLL/100.0)* SV@PRD@EQM ;SOV   IMP
-         LW.HV2@PRD@IMP = TIME    + LI.TIMEPEN + (LW.HV2@PRD@TOLL/100.0)* H2@PRD@EQM ;HOV 2 IMP
-;        LW.HV3@PRD@IMP = TIME    + LI.TIMEPEN + (LW.HV3@PRD@TOLL/100.0)* H3@PRD@EQM ;HOV 3+IMP
-;;-->>   LW.HV3@PRD@IMP = TIME    + LI.TIMEPEN + (LW.HV3@PRD@TOLL/100.0)* H3@PRD@EQM ;HOV 3+IMP
-         LW.CV@PRD@IMP  = TIME    + LI.TIMEPEN + (LW.CV@PRD@TOLL/100.0) * CV@PRD@EQM ;CV    IMP
-         LW.TRK@PRD@IMP = TIME    + LI.TIMEPEN + (LW.TRK@PRD@TOLL/100.0)* TK@PRD@EQM ;Truck IMP
-         LW.APX@PRD@IMP = TIME    + LI.TIMEPEN + (LW.APX@PRD@TOLL/100.0)* AP@PRD@EQM ;APAX  IMP
+         LW.SOV@PRD@IMP = TIME                  + (LW.SOV@PRD@TOLL/100.0)* SV@PRD@EQM ;SOV   IMP
+         LW.HV2@PRD@IMP = TIME                  + (LW.HV2@PRD@TOLL/100.0)* H2@PRD@EQM ;HOV 2 IMP
+;        LW.HV3@PRD@IMP = TIME                  + (LW.HV3@PRD@TOLL/100.0)* H3@PRD@EQM ;HOV 3+IMP
+;;-->>   LW.HV3@PRD@IMP = TIME                  + (LW.HV3@PRD@TOLL/100.0)* H3@PRD@EQM ;HOV 3+IMP
+         LW.CV@PRD@IMP  = TIME                  + (LW.CV@PRD@TOLL/100.0) * CV@PRD@EQM ;CV    IMP
+         LW.TRK@PRD@IMP = TIME                  + (LW.TRK@PRD@TOLL/100.0)* TK@PRD@EQM ;Truck IMP
+         LW.APX@PRD@IMP = TIME                  + (LW.APX@PRD@TOLL/100.0)* AP@PRD@EQM ;APAX  IMP
 
           IF (LI.@PRD@TOLL > 0)
                PRINT LIST = 'iteration: ',iteration(3),' A: ',A(7),' B: ',B(7),
@@ -589,7 +596,7 @@ PHASE=ILOOP
    IF (i=FirstZone)
      LINKLOOP
        ; Initial Iteration LINK IMPEDANCE (HIGHWAY TIME + Equiv.Toll/Time) by vehicle type here:
-         LW.HV3@PRD@IMP = TIME    + LI.TIMEPEN + (LW.HV3@PRD@TOLL/100.0)* H3@PRD@EQM ;HOV 3+IMP
+         LW.HV3@PRD@IMP = TIME                  + (LW.HV3@PRD@TOLL/100.0)* H3@PRD@EQM ;HOV 3+IMP
 
         IF (LI.@PRD@TOLL > 0)
                PRINT LIST = 'iteration: ',iteration(3),' A: ',A(7),' B: ',B(7),
@@ -857,13 +864,13 @@ PHASE=ILOOP
    IF (i=FirstZone)
      LINKLOOP
        ; Initial Iteration LINK IMPEDANCE (HIGHWAY TIME + Equiv.Toll/Time) by vehicle type here:
-         LW.SOV@PRD@IMP = TIME    + LI.TIMEPEN + (LW.SOV@PRD@TOLL/100.0)* SV@PRD@EQM ;SOV   IMP
-         LW.HV2@PRD@IMP = TIME    + LI.TIMEPEN + (LW.HV2@PRD@TOLL/100.0)* H2@PRD@EQM ;HOV 2 IMP
-;        LW.HV3@PRD@IMP = TIME    + LI.TIMEPEN + (LW.HV3@PRD@TOLL/100.0)* H3@PRD@EQM ;HOV 3+IMP
-;;-->>   LW.HV3@PRD@IMP = TIME    + LI.TIMEPEN + (LW.HV3@PRD@TOLL/100.0)* H3@PRD@EQM ;HOV 3+IMP
-         LW.CV@PRD@IMP  = TIME    + LI.TIMEPEN + (LW.CV@PRD@TOLL/100.0) * CV@PRD@EQM ;CV    IMP
-         LW.TRK@PRD@IMP = TIME    + LI.TIMEPEN + (LW.TRK@PRD@TOLL/100.0)* TK@PRD@EQM ;Truck IMP
-         LW.APX@PRD@IMP = TIME    + LI.TIMEPEN + (LW.APX@PRD@TOLL/100.0)* AP@PRD@EQM ;APAX  IMP
+         LW.SOV@PRD@IMP = TIME                  + (LW.SOV@PRD@TOLL/100.0)* SV@PRD@EQM ;SOV   IMP
+         LW.HV2@PRD@IMP = TIME                  + (LW.HV2@PRD@TOLL/100.0)* H2@PRD@EQM ;HOV 2 IMP
+;        LW.HV3@PRD@IMP = TIME                  + (LW.HV3@PRD@TOLL/100.0)* H3@PRD@EQM ;HOV 3+IMP
+;;-->>   LW.HV3@PRD@IMP = TIME                  + (LW.HV3@PRD@TOLL/100.0)* H3@PRD@EQM ;HOV 3+IMP
+         LW.CV@PRD@IMP  = TIME                  + (LW.CV@PRD@TOLL/100.0) * CV@PRD@EQM ;CV    IMP
+         LW.TRK@PRD@IMP = TIME                  + (LW.TRK@PRD@TOLL/100.0)* TK@PRD@EQM ;Truck IMP
+         LW.APX@PRD@IMP = TIME                  + (LW.APX@PRD@TOLL/100.0)* AP@PRD@EQM ;APAX  IMP
 
           IF (LI.@PRD@TOLL > 0)
                PRINT LIST = 'iteration: ',iteration(3),' A: ',A(7),' B: ',B(7),
@@ -1107,7 +1114,7 @@ PHASE=ILOOP
    IF (i=FirstZone)
      LINKLOOP
        ; Initial Iteration LINK IMPEDANCE (HIGHWAY TIME + Equiv.Toll/Time) by vehicle type here:
-         LW.HV3@PRD@IMP = TIME    + LI.TIMEPEN + (LW.HV3@PRD@TOLL/100.0)* H3@PRD@EQM ;HOV 3+IMP
+         LW.HV3@PRD@IMP = TIME                  + (LW.HV3@PRD@TOLL/100.0)* H3@PRD@EQM ;HOV 3+IMP
 
         IF (LI.@PRD@TOLL > 0)
                PRINT LIST = 'iteration: ',iteration(3),' A: ',A(7),' B: ',B(7),
@@ -1369,12 +1376,12 @@ PHASE=ILOOP
    IF (i=FirstZone)
      LINKLOOP
        ; Initial Iteration LINK IMPEDANCE (HIGHWAY TIME + Equiv.Toll/Time) by vehicle type here:
-         LW.SOV@PRD@IMP = TIME    + LI.TIMEPEN + (LW.SOV@PRD@TOLL/100.0)* SV@PRD@EQM ;SOV   IMP
-         LW.HV2@PRD@IMP = TIME    + LI.TIMEPEN + (LW.HV2@PRD@TOLL/100.0)* H2@PRD@EQM ;HOV 2 IMP
-         LW.HV3@PRD@IMP = TIME    + LI.TIMEPEN + (LW.HV3@PRD@TOLL/100.0)* H3@PRD@EQM ;HOV 3+IMP
-         LW.CV@PRD@IMP  = TIME    + LI.TIMEPEN + (LW.CV@PRD@TOLL /100.0)* CV@PRD@EQM ;CV    IMP
-         LW.TRK@PRD@IMP = TIME    + LI.TIMEPEN + (LW.TRK@PRD@TOLL/100.0)* TK@PRD@EQM ;Truck IMP
-         LW.APX@PRD@IMP = TIME    + LI.TIMEPEN + (LW.APX@PRD@TOLL/100.0)* AP@PRD@EQM ;APAX  IMP
+         LW.SOV@PRD@IMP = TIME                  + (LW.SOV@PRD@TOLL/100.0)* SV@PRD@EQM ;SOV   IMP
+         LW.HV2@PRD@IMP = TIME                  + (LW.HV2@PRD@TOLL/100.0)* H2@PRD@EQM ;HOV 2 IMP
+         LW.HV3@PRD@IMP = TIME                  + (LW.HV3@PRD@TOLL/100.0)* H3@PRD@EQM ;HOV 3+IMP
+         LW.CV@PRD@IMP  = TIME                  + (LW.CV@PRD@TOLL /100.0)* CV@PRD@EQM ;CV    IMP
+         LW.TRK@PRD@IMP = TIME                  + (LW.TRK@PRD@TOLL/100.0)* TK@PRD@EQM ;Truck IMP
+         LW.APX@PRD@IMP = TIME                  + (LW.APX@PRD@TOLL/100.0)* AP@PRD@EQM ;APAX  IMP
 
           IF (LI.@PRD@TOLL > 0)
                PRINT LIST = 'iteration: ',iteration(3),' A: ',A(7),' B: ',B(7),
@@ -1632,12 +1639,12 @@ PHASE=ILOOP
    IF (i=FirstZone)
      LINKLOOP
        ; Initial Iteration LINK IMPEDANCE (HIGHWAY TIME + Equiv.Toll/Time) by vehicle type here:
-         LW.SOV@PRD@IMP = TIME    + LI.TIMEPEN + (LW.SOV@PRD@TOLL/100.0)* SV@PRD@EQM ;SOV   IMP
-         LW.HV2@PRD@IMP = TIME    + LI.TIMEPEN + (LW.HV2@PRD@TOLL/100.0)* H2@PRD@EQM ;HOV 2 IMP
-         LW.HV3@PRD@IMP = TIME    + LI.TIMEPEN + (LW.HV3@PRD@TOLL/100.0)* H3@PRD@EQM ;HOV 3+IMP
-         LW.CV@PRD@IMP  = TIME    + LI.TIMEPEN + (LW.CV@PRD@TOLL /100.0)* CV@PRD@EQM ;CV    IMP
-         LW.TRK@PRD@IMP = TIME    + LI.TIMEPEN + (LW.TRK@PRD@TOLL/100.0)* TK@PRD@EQM ;Truck IMP
-         LW.APX@PRD@IMP = TIME    + LI.TIMEPEN + (LW.APX@PRD@TOLL/100.0)* AP@PRD@EQM ;APAX  IMP
+         LW.SOV@PRD@IMP = TIME                  + (LW.SOV@PRD@TOLL/100.0)* SV@PRD@EQM ;SOV   IMP
+         LW.HV2@PRD@IMP = TIME                  + (LW.HV2@PRD@TOLL/100.0)* H2@PRD@EQM ;HOV 2 IMP
+         LW.HV3@PRD@IMP = TIME                  + (LW.HV3@PRD@TOLL/100.0)* H3@PRD@EQM ;HOV 3+IMP
+         LW.CV@PRD@IMP  = TIME                  + (LW.CV@PRD@TOLL /100.0)* CV@PRD@EQM ;CV    IMP
+         LW.TRK@PRD@IMP = TIME                  + (LW.TRK@PRD@TOLL/100.0)* TK@PRD@EQM ;Truck IMP
+         LW.APX@PRD@IMP = TIME                  + (LW.APX@PRD@TOLL/100.0)* AP@PRD@EQM ;APAX  IMP
 
           IF (LI.@PRD@TOLL > 0)
                PRINT LIST = 'iteration: ',iteration(3),' A: ',A(7),' B: ',B(7),
