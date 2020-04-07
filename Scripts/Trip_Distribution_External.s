@@ -1,5 +1,12 @@
 *del voya*.prn
 
+;======================================================================================================
+; Trip_Distribution_External.s  - Version 2.5 Trip Distribution for External Trips
+; RJM, RQN 5/14/2018 - Updated to account for new external trip distribution process on Ver2.5
+; 1= Updated external P/A file from %_iter_%_Ext_Trip_Gen_PsAs.dbf to %_iter_%_Ext_Trip_Gen_PsAs_Adj.dbf
+; 2= Updated Maxiters:  HBS= from 27 to 9, HBO from 27 to 15, and NHBW/O from 9 to 15
+; 3= Updated NHB FFactor variable names in the look-up table
+;=======================================================================================================
 
 
 ; Trip_Distribution_External.s  - Version 2.3 Trip Distribution for External Trips
@@ -71,7 +78,7 @@ AutoAttrs = '%_iter_%_Trip_Gen_Attractions_Comp.dbf' ; Intl/Extl Auto Attraction
 ;         NHW_MTR_AS  NHW_NMT_AS  NHW_ALL_AS  NHO_MTR_AS  NHO_NMT_AS  NHO_ALL_AS
 
 
-ExtPsAs   = '%_iter_%_Ext_Trip_Gen_PsAs.dbf' ; Extl Auto Ps, As
+ExtPsAs   = '%_iter_%_Ext_Trip_Gen_PsAs_Adj.dbf' ; Extl Auto Ps, As
 ;;Variables in dbf file:
 ; TAZ     SHBW_Mtr_Ps  SHBS_Mtr_Ps  SHBO_Mtr_Ps  SNHW_Mtr_Ps  SNHO_Mtr_Ps
 ;         SHBW_Mtr_As  SHBS_Mtr_As  SHBO_Mtr_As  SNHW_Mtr_As  SNHO_Mtr_As
@@ -519,7 +526,7 @@ LOOKUP LOOKUPI=1, NAME=FF,
 SETPA P[1]=ZI.3.SHBS_MtrPs, P[2]=ZI.3.SHBS_MtrPs
 SETPA A[1]=ZI.3.SHBS_MtrAs, A[2]=ZI.3.SHBS_MtrAs
 
-MAXITERS = 27    ; specify GM iterations
+MAXITERS = 9    ; specify GM iterations
 MAXRMSE  = 0.0001
 
 
@@ -581,7 +588,7 @@ LOOKUP LOOKUPI=1, NAME=FF,
 SETPA P[1]=ZI.3.SHBO_MtrPs, P[2]=ZI.3.SHBO_MtrPs
 SETPA A[1]=ZI.3.SHBO_MtrAs, A[2]=ZI.3.SHBO_MtrAs
 
-MAXITERS = 27    ; specify GM iterations
+MAXITERS = 15    ; specify GM iterations
 MAXRMSE  = 0.0001
 
 
@@ -634,10 +641,10 @@ ZDATI[1]     = @ExtPsAs@   ;  External Ps,As attractions file
 ;  read friction factors file as lookup table
 FileI LOOKUPI[1] = "@FFsFile@"
 LOOKUP LOOKUPI=1, NAME=FF,
-       LOOKUP[1]  = IMP, RESULT=NHBEI,     ;
-       LOOKUP[2]  = IMP, RESULT=NHBEA,     ;
-       LOOKUP[3]  = IMP, RESULT=NHBEI,     ;
-       LOOKUP[4]  = IMP, RESULT=NHBEA,     ;
+       LOOKUP[1]  = IMP, RESULT=NHWEI,     ;
+       LOOKUP[2]  = IMP, RESULT=NHWEA,     ;
+       LOOKUP[3]  = IMP, RESULT=NHOEI,     ;
+       LOOKUP[4]  = IMP, RESULT=NHOEA,     ;
        INTERPOLATE=N,SETUPPER=T,FAIL=0,0,0
 
 ;  Establish production and attraction vectors here:
@@ -645,7 +652,7 @@ LOOKUP LOOKUPI=1, NAME=FF,
 SETPA P[1]=ZI.1.SNHW_MtrAs, P[2]=ZI.1.SNHW_MtrAs, P[3]=ZI.1.SNHO_MtrAs, P[4]=ZI.1.SNHO_MtrAs
 SETPA A[1]=ZI.1.SNHW_MtrAs, A[2]=ZI.1.SNHW_MtrAs, A[3]=ZI.1.SNHO_MtrAs, A[4]=ZI.1.SNHO_MtrAs
 
-MAXITERS = 9     ; specify GM iterations
+MAXITERS = 15     ; specify GM iterations
 MAXRMSE  = 0.0001
 
 
