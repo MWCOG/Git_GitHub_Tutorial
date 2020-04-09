@@ -120,7 +120,7 @@ LOOP ACCESS = 1,3
 RUN PGM=TRNBUILD
  NETI = ZONEHWY.NET
  MATO = transit.temp.ab.skm
- maxnode = 60000
+ maxnode = 160000
 
  HWYTIME = @TIME_PERIOD@HTIME
 

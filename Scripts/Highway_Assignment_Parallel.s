@@ -1800,7 +1800,7 @@ CAPFAC=1/(PCTADT/100)      ; Capacity Factor = 1/(PCTADT/100)
 
     ; PRINT TO check
 
- print LIST=A(5),' ',B(5),DISTANCE(7.2),' ',@PCTADT@(4.3),' ',@prd@LANE(2.0),' ',
+ print LIST=A(6),' ',B(6),DISTANCE(7.2),' ',@PCTADT@(4.3),' ',@prd@LANE(2.0),' ',
      @prd@HRLKCAP(5.0),' ',@prd@HRLNCAP(5.0),' ',
      %_iter_%@prd@VOL(8.2),' ',
      %_iter_%@prd@ffspd(5.1),' ',%_iter_%@prd@VC(6.4),' ',%_iter_%@prd@VDF(6.4),' ',
@@ -1908,7 +1908,7 @@ CAPFAC=1/(PCTADT/100)      ; Capacity Factor = 1/(PCTADT/100)
 
     ; PRINT TO check
 
- print LIST=A(5),' ',B(5),DISTANCE(7.2),' ',@PCTADT@(4.3),' ',@prd@LANE(2.0),' ',
+ print LIST=A(6),' ',B(6),DISTANCE(7.2),' ',@PCTADT@(4.3),' ',@prd@LANE(2.0),' ',
      @prd@HRLKCAP(5.0),' ',@prd@HRLNCAP(5.0),' ',
      %_iter_%@prd@VOL(8.2),' ',
      %_iter_%@prd@ffspd(5.1),' ',%_iter_%@prd@VC(6.4),' ',%_iter_%@prd@VDF(6.4),' ',
