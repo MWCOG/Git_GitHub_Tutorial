@@ -526,7 +526,7 @@ LOOKUP LOOKUPI=1, NAME=FF,
 SETPA P[1]=ZI.3.SHBS_MtrPs, P[2]=ZI.3.SHBS_MtrPs
 SETPA A[1]=ZI.3.SHBS_MtrAs, A[2]=ZI.3.SHBS_MtrAs
 
-MAXITERS = 9    ; specify GM iterations
+MAXITERS = 27    ; specify GM iterations
 MAXRMSE  = 0.0001
 
 
@@ -588,7 +588,7 @@ LOOKUP LOOKUPI=1, NAME=FF,
 SETPA P[1]=ZI.3.SHBO_MtrPs, P[2]=ZI.3.SHBO_MtrPs
 SETPA A[1]=ZI.3.SHBO_MtrAs, A[2]=ZI.3.SHBO_MtrAs
 
-MAXITERS = 15    ; specify GM iterations
+MAXITERS = 27    ; specify GM iterations
 MAXRMSE  = 0.0001
 
 
