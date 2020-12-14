@@ -1,9 +1,9 @@
-:: Version 2.3.78
-:: 6/18/2019 4:44:21 PM
-:: Version 2.3 TPB Travel Model on 3722 TAZ System
+:: Version 2.4
+:: 4/21/2020 1:10:10 PM
+:: Version 2.4 TPB Travel Model on 3722 TAZ System
 
 set _year_=2019
-set _alt_=Ver2.3.78_2019_PP
+set _alt_=Ver2.4_2019_PP
 :: Maximum number of user equilibrium iterations used in traffic assignment
 :: User should not need to change this.  Instead, change _relGap_ (below)
 set _maxUeIter_=1000

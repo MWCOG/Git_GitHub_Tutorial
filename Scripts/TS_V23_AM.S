@@ -24,7 +24,7 @@ CONV_VAL =   20.00;  in current CPI year cents; it is unlikely that a user will 
 
 
 MAXTGRPS =  %MAXTGRPS%;  Maximum toll group number
-VC_UW    =  1.0100; VC RATIO UPPER BOUND
+VC_UW    =  0.9500; VC RATIO UPPER BOUND
 PRD      = 'AM'   ;
 
 pr       =     3  ;  iteration index
@@ -134,24 +134,24 @@ ENDLOOP                    ; END - loop for estimating average vc ratio & avg wg
 ;
 
      LOOP K=1,@MAXTGRPS@
-           IF (TG_@PRD@AVC[K] > 1.0100)                                                          ; CASE 1: when VC > 1.01 ADD TOLL
-                IF(D_@PRD@VC[K] > 0.1000)                                                        ;
+           IF (TG_@PRD@AVC[K] > 0.9500)                                                          ; CASE 1: when VC > 0.95 ADD TOLL
+                IF(D_@PRD@VC[K] > 0.1600)                                                        ;
                    TG_@PRD@X[K]  = TG_@PRD@OTL[K] + 1*50.0*@CONV_VAL@/20.0                       ;             50 CENTS INCREASE
                    TG_@PRD@DT[K] = 0                                                             ;
-                ELSEIF(D_@PRD@VC[K] =0.0500-0.0999)                                              ;
+                ELSEIF(D_@PRD@VC[K] =0.1100-0.1599)                                              ;
                    TG_@PRD@X[K]  = TG_@PRD@OTL[K] + 1*40.0*@CONV_VAL@/20.0                       ;             40 CENTS INCREASE
                    TG_@PRD@DT[K] = 0                                                             ;
-                ELSEIF(D_@PRD@VC[K] =0.0200-0.0499)                                              ;
+                ELSEIF(D_@PRD@VC[K] =0.0800-0.1099)                                              ;
                    TG_@PRD@X[K]  = TG_@PRD@OTL[K] + 1*30.0*@CONV_VAL@/20.0                       ;             30 CENTS INCREASE
                    TG_@PRD@DT[K] = 0                                                             ;
-                ELSEIF(D_@PRD@VC[K] =0.0100-0.0199)                                              ;
+                ELSEIF(D_@PRD@VC[K] =0.0700-0.0799)                                              ;
                    TG_@PRD@X[K]  = TG_@PRD@OTL[K] + 1*20.0*@CONV_VAL@/20.0                       ;             20 CENTS INCREASE
                    TG_@PRD@DT[K] = 0                                                             ;
                 ELSE                                                                             ;
                    TG_@PRD@X[K]  = TG_@PRD@OTL[K] + 1*10.0*@CONV_VAL@/20.0                       ;             10 CENTS INCREASE
                    TG_@PRD@DT[K] = 0                                                             ;
                 ENDIF                                                                            ;
-            ELSEIF(TG_@PRD@AVC[K] < 0.9500)                                                      ; CASE 2: when VC < 0.95
+            ELSEIF(TG_@PRD@AVC[K] < 0.9000)                                                      ; CASE 2: when VC < 0.90
                 IF(TG_@PRD@OTL[K] <= 20.0)                                                       ; CASE 2.1: TOLL < BASE TOLL, KEEP BASE TOLL
                    TG_@PRD@X[K]  = TG_@PRD@OTL[K]                                                ;
                    TG_@PRD@DT[K] = 1                                                             ;
@@ -159,7 +159,7 @@ ENDLOOP                    ; END - loop for estimating average vc ratio & avg wg
                    TG_@PRD@X[K]  = TG_@PRD@OTL[K]                                                ;
                    TG_@PRD@DT[K] = 1                                                             ;
                 ENDIF                                                                            ;
-            ELSE                                                                                 ; CASE 3: NO TOLL CHANGE WHEN 0.95 <= VC <= 1.01
+            ELSE                                                                                 ; CASE 3: NO TOLL CHANGE WHEN 0.90 <= VC <= 0.95
                   TG_@PRD@X[K]  = TG_@PRD@OTL[K]                                                 ;
                   TG_@PRD@DT[K] = 1                                                              ;
             ENDIF                                                                                ;
