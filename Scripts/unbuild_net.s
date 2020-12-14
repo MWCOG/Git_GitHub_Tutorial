@@ -21,7 +21,7 @@ neti = @basepath@\@inhwy@
 
 linko= @basepath@\@out_link@,
   format=DBF,
-  include=a(5),b(5),distance(7.2),spdclass(7),capclass(7),jur(7),Screen(5),ftype(7),toll(9),tollgrp(5),
+  include=a(6),b(6),distance(7.2),spdclass(7),capclass(7),jur(7),Screen(5),ftype(7),toll(9),tollgrp(5),
            amlane(3),amlimit(3),pmlane(3),pmlimit(3),oplane(3),oplimit(3),edgeid(10),linkid(10),netyear(8),Shape_Leng(7.2),
            projectid(10)
 

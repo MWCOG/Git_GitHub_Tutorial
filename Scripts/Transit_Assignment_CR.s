@@ -78,7 +78,7 @@ LOOP ACCESS = 1, 2
 RUN PGM=TRNBUILD
  NETI = ZONEHWY.NET
  MATI = @MATIN@
- maxnode = 60000
+ maxnode = 160000
 
  HWYTIME = @TIME_PERIOD@HTIME
 
@@ -109,7 +109,7 @@ COMBINE MAXDIFF[10] = 0.0, IF[10] = ((RUN - MINRUN) < @COMBINE@)
 
 ;---- factors to convert actual time to perceived time ----
 
-MODEFAC[1]  = 10*1.0  ;---- in-vehicle time
+MODEFAC[1]  = 3*1.0,0.8,6*1.0  ;---- in-vehicle time
 MODEFAC[11] = 1.50    ;---- drive access time
 MODEFAC[12] = 2.00    ;---- transit transfer time
 MODEFAC[13] = 2.00    ;---- walk network time
@@ -121,7 +121,7 @@ MODEFAC[16] = 2.00    ;---- walk access time
 
 IWAITFAC[1] = 10*2.50
 XWAITFAC[1] = 10*2.50
-IWAITMAX[1] = 10*60.0
+IWAITMAX[1] = 3*60.0,10.0,6*60.0
 XWAITMIN[1] = 2*4.0,0.0,4.0,0.0,3*4.0,10.0,4.0
 
 ;---- boarding and transfer penalties ----

@@ -5,7 +5,7 @@
 ;; 	  		opposed to using the sequence number as TAZ (K), as notified by AECOM - RJM	
 ;; 04/17/17 - Corrected the distance notes: "tenths" to "hundredths" - DQN
 ;; Dimensions:
-NodeSize    = 60000       ;; Highway node size
+NodeSize    = 160000       ;; Highway node size
 TAZSTASize  =  7999       ;; TAZ/Sta dimensions
 ITAZSize    =  3675       ;; Internal TAZ dimensions
 XLinkSize   =  1000       ;; Max. no. of user-defined Add/Del links

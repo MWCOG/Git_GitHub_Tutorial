@@ -391,14 +391,14 @@ IF (j != CurrJ) CONTINUE
 ;;------------------------------------------------------------------------------
      IF (PentTAZ[I] > 0 && j = pentsta)
 
-         Print Printo=1 list = ' SUPPLINK N=',I(5),'-',Pentnode(5),' DIST=',AMDIST(6),
+         Print Printo=1 list = ' SUPPLINK N=',I(5),'-',Pentnode(6),' DIST=',AMDIST(6),
                       ' ONEWAY=Y MODE=11 SPEED=',AMSPD(4)
 
-         Print Printo=2 list = ' SUPPORT N=',I(5),'-',Pentnode(5),' DIST=',AMDIST(6),
+         Print Printo=2 list = ' SUPPORT N=',I(5),'-',Pentnode(6),' DIST=',AMDIST(6),
                       ' ONEWAY=Y MODE=11 SPEED=',AMSPD(4)
 
 
-         Print Printo=3 list = ' SUPPORT N=',I(5),'-',Pentnode(5),' DIST=',OPDIST(6),
+         Print Printo=3 list = ' SUPPORT N=',I(5),'-',Pentnode(6),' DIST=',OPDIST(6),
                       ' ONEWAY=Y MODE=11 SPEED=',OPSPD(4)
      ENDIF
 ;;  end  AM/OP Pentagon Links-------------------------------------------

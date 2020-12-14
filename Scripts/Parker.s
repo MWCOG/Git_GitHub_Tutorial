@@ -82,13 +82,13 @@ LOOP K = 1,dbi.1.NUMRECORDS
         _time  = _walkpk + STAPKSHAD + (@MinPerDoll@  * _parkam)
         _xtime = _time/100.0
 
-        Print printo =1   list = 'SUPPLINK N=',STAP(5),'-',STAT(5),' ONEWAY=Y MODE=15',
+        Print printo =1   list = 'SUPPLINK N=',STAP(6),'-',STAT(6),' ONEWAY=Y MODE=15',
                                  ' DIST= ',_parkam(5),' TIME= ', _Xtime(8.2)
 
         _time  = _walkop + STAOPSHAD + (@MinPerDoll@  * _parkop)
         _xtime = _time/100.0
 
-        Print printo =6   list = 'SUPPLINK N=',STAP(5),'-',STAT(5),' ONEWAY=Y MODE=15',
+        Print printo =6   list = 'SUPPLINK N=',STAP(6),'-',STAT(6),' ONEWAY=Y MODE=15',
                                  ' DIST= ',_parkop(5),' TIME= ', _Xtime(8.2)
  ENDIF
 
@@ -99,13 +99,13 @@ LOOP K = 1,dbi.1.NUMRECORDS
         _time  = _walkpk + STAPKSHAD + (@MinPerDoll@  * _parkam)
         _xtime = _time/100.0
 
-        Print printo =2   list = 'SUPPLINK N=',STAP(5),'-',STAT(5),' ONEWAY=Y MODE=15',
+        Print printo =2   list = 'SUPPLINK N=',STAP(6),'-',STAT(6),' ONEWAY=Y MODE=15',
                                  ' DIST= ',_parkam(5),' TIME= ', _Xtime(8.2)
 
         _time  = _walkop + STAOPSHAD + (@MinPerDoll@  * _parkop)
         _xtime = _time/100.0
 
-        Print printo =7   list = 'SUPPLINK N=',STAP(5),'-',STAT(5),' ONEWAY=Y MODE=15',
+        Print printo =7   list = 'SUPPLINK N=',STAP(6),'-',STAT(6),' ONEWAY=Y MODE=15',
                                  ' DIST= ',_parkop(5),' TIME= ', _Xtime(8.2)
  ENDIF
 
@@ -116,13 +116,13 @@ LOOP K = 1,dbi.1.NUMRECORDS
         _time  = _walkpk + STAPKSHAD + (@MinPerDoll@  * _parkam)
         _xtime = _time/100.0
 
-        Print printo =3   list = 'SUPPLINK N=',STAP(5),'-',STAN1(5),' ONEWAY=Y MODE=15',
+        Print printo =3   list = 'SUPPLINK N=',STAP(6),'-',STAN1(6),' ONEWAY=Y MODE=15',
                                  ' DIST= ',_parkam(5),' TIME= ', _Xtime(8.2)
 
         _time  = _walkop + STAOPSHAD + (@MinPerDoll@  * _parkop)
         _xtime = _time/100.0
 
-        Print printo =8   list = 'SUPPLINK N=',STAP(5),'-',STAN1(5),' ONEWAY=Y MODE=15',
+        Print printo =8   list = 'SUPPLINK N=',STAP(6),'-',STAN1(6),' ONEWAY=Y MODE=15',
                                  ' DIST= ',_parkop(5),' TIME= ', _Xtime(8.2)
  ENDIF
 
@@ -133,13 +133,13 @@ LOOP K = 1,dbi.1.NUMRECORDS
         _time  = _walkpk + STAPKSHAD + (@MinPerDoll@  * _parkam)
         _xtime = _time/100.0
 
-        Print printo =4   list = 'SUPPLINK N=',STAP(5),'-',STAT(5),' ONEWAY=Y MODE=15',
+        Print printo =4   list = 'SUPPLINK N=',STAP(6),'-',STAT(6),' ONEWAY=Y MODE=15',
                                  ' DIST= ',_parkam(5),' TIME= ', _Xtime(8.2)
 
         _time  = _walkop + STAOPSHAD + (@MinPerDoll@  * _parkop)
         _xtime = _time/100.0
 
-        Print printo =9   list = 'SUPPLINK N=',STAP(5),'-',STAT(5),' ONEWAY=Y MODE=15',
+        Print printo =9   list = 'SUPPLINK N=',STAP(6),'-',STAT(6),' ONEWAY=Y MODE=15',
                                  ' DIST= ',_parkop(5),' TIME= ', _Xtime(8.2)
  ENDIF
 
@@ -150,13 +150,13 @@ LOOP K = 1,dbi.1.NUMRECORDS
         _time  = _walkpk + STAPKSHAD + (@MinPerDoll@  * _parkam)
         _xtime = _time/100.0
 
-        Print printo =5   list = 'SUPPLINK N=',STAP(5),'-',STAT(5),' ONEWAY=Y MODE=15',
+        Print printo =5   list = 'SUPPLINK N=',STAP(6),'-',STAT(6),' ONEWAY=Y MODE=15',
                                  ' DIST= ',_parkam(5),' TIME= ', _Xtime(8.2)
 
         _time  = _walkop + STAOPSHAD + (@MinPerDoll@  * _parkop)
         _xtime = _time/100.0
 
-        Print printo =10   list = 'SUPPLINK N=',STAP(5),'-',STAT(5),' ONEWAY=Y MODE=15',
+        Print printo =10   list = 'SUPPLINK N=',STAP(6),'-',STAT(6),' ONEWAY=Y MODE=15',
                                  ' DIST= ',_parkop(5),' TIME= ', _Xtime(8.2)
  ENDIF
 
