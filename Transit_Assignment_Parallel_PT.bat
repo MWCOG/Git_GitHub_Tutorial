@@ -23,35 +23,35 @@ if %useMDP%==t goto Parallel_Processing
 if %useMDP%==T goto Parallel_Processing
 @echo Start Transit Assignments 
 
-START /wait Transit_Assignment_LineHaul_Parallel.bat %1 CR
+START /wait Transit_Assignment_LineHaul_Parallel_PT.bat %1 CR
 
 ::  Transit Assignment Metrorail
-START /wait Transit_Assignment_LineHaul_Parallel.bat %1 MR
+START /wait Transit_Assignment_LineHaul_Parallel_PT.bat %1 MR
 
 ::  Transit Assignment All Bus
-START /wait Transit_Assignment_LineHaul_Parallel.bat %1 AB
+START /wait Transit_Assignment_LineHaul_Parallel_PT.bat %1 AB
 
 ::  Transit Assignment Bus and Metrorail
-START /wait Transit_Assignment_LineHaul_Parallel.bat %1 BM
+START /wait Transit_Assignment_LineHaul_Parallel_PT.bat %1 BM
 
 goto Transit_Assignmets_Are_Done
 
 :Parallel_Processing
 @echo Start Transit Assignments - Parallel
 
-START Transit_Assignment_LineHaul_Parallel.bat %1 CR
+START Transit_Assignment_LineHaul_Parallel_PT.bat %1 CR
 @ping -n 11 127.0.0.1
 
 ::  Transit Assignment Metrorail
-START Transit_Assignment_LineHaul_Parallel.bat %1 MR
+START Transit_Assignment_LineHaul_Parallel_PT.bat %1 MR
 @ping -n 11 127.0.0.1
 
 ::  Transit Assignment All Bus
-START Transit_Assignment_LineHaul_Parallel.bat %1 AB
+START Transit_Assignment_LineHaul_Parallel_PT.bat %1 AB
 @ping -n 11 127.0.0.1
 
 ::  Transit Assignment Bus and Metrorail
-START /wait Transit_Assignment_LineHaul_Parallel.bat %1 BM
+START /wait Transit_Assignment_LineHaul_Parallel_PT.bat %1 BM
 
 :Transit_Assignmets_Are_Done
 

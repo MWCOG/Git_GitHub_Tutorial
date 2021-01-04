@@ -7,7 +7,7 @@ if exist voya*.* del voya*.*
 if exist %_iter_%_Transit_Assgn_%2.RPT del %_iter_%_Transit_Assgn_%2.RPT
 
 REM Cluster.exe MWCOG %subnode% start exit
-start /w voyager.exe ..\Scripts\transit_assignment_%2.s /start -Pvoya -S..\%1
+start /w voyager.exe ..\Scripts\PT_asgn_%2.s /start -Pvoya -S..\%1
 REM Cluster.exe MWCOG %subnode% close exit
 
 if errorlevel 2 goto error

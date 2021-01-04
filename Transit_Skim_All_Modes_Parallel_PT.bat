@@ -2,63 +2,36 @@
 ::  updated 4/27/07  copy sta_tpp.bse from inputs to output subdir.
 ::  updated 6/15/11  runs walkacc process for pp iteration only
 ::  updated 5/11/16  Update autoacc and local-bus in-vehicle speed degradation 
+::  updated 2/19/20 for PT-based Skimming Process
+::---------------------------------------------
+::  Version 2.3 Transit SKIM and Fare2 Process
+::---------------------------------------------
+
 CD %1
 
-
-
-:: Delete previous iteration highway skim files for Transit Skimming (if files exist)
- 
-if exist am_sov_mod.skm   del am_sov_mod.skm
-if exist md_sov_mod.skm   del md_sov_mod.skm
-
-:: Set up current iteration highway skim files for transit Skimming
-
-if exist %_prev_%_am_sov_mod.skm  copy %_prev_%_am_sov_mod.skm  am_sov_mod.skm /y
-if exist %_prev_%_md_sov_mod.skm  copy %_prev_%_md_sov_mod.skm  md_sov_mod.skm /y
-
-if exist voya*.*  del voya*.*
-if exist parker.rpt  del parker.rpt 
-start /w Voyager.exe  ..\scripts\parker.s /start -Pvoya -S..\%1
-if errorlevel 1 goto error
-if exist voya*.prn  copy voya*.prn parker.rpt /y
-
-if %_iter_%==pp goto runwalk
-goto skipwalk
-
-:runwalk 
-
-::copy transit lines and support files from the inputs subdir. 
-copy inputs\*.TB /y
-copy inputs\mfare1.a1 /y
-
-::develop walk access links.
-if exist voya*.*  del voya*.*
-if exist walkacc.rpt  del walkacc.rpt 
-start /w Voyager.exe  ..\scripts\walkacc.s /start -Pvoya -S..\%1
-if errorlevel 1 goto error
-if exist voya*.prn  copy voya*.prn walkacc.rpt /y
-
 ::adjust local bus run times by applying bus speed degradation factors.
+:: (Added 5/18/20 by fxie)
+:: if exist voya*.*  del voya*.*
+:: if exist Adjust_Runtime.rpt  del Adjust_Runtime.rpt 
+:: start /w Voyager.exe  ..\scripts\Adjust_Runtime_PT.s /start -Pvoya -S..\%1
+:: if errorlevel 1 goto error
+:: if exist voya*.prn  copy voya*.prn Adjust_Runtime.rpt /y
+
+::  
+::develop PT network building process to include updating the transit speeds
+:: (Added 4/24/19)  
 if exist voya*.*  del voya*.*
-if exist Adjust_Runtime.rpt  del Adjust_Runtime.rpt 
-start /w Voyager.exe  ..\scripts\Adjust_Runtime.s /start -Pvoya -S..\%1
+if exist V2.5_PTNet_Build_Iteration.rpt  del V2.5_PTNet_Build_Iteration.rpt 
+start /w Voyager.exe  ..\scripts\V2.5_PTNet_Build_Iteration.S /start -Pvoya -S..\%1
 if errorlevel 1 goto error
-if exist voya*.prn  copy voya*.prn Adjust_Runtime.rpt /y
+if exist voya*.prn  copy voya*.prn V2.5_PTNet_Build_Iteration.rpt /y
+:: 
 
-
-:skipwalk
 if exist voya*.*  del voya*.*
-if exist autoacc5.rpt  del autoacc5.rpt 
-start /w Voyager.exe  ..\scripts\autoacc5.s /start -Pvoya -S..\%1
-if errorlevel 1 goto error
-if exist voya*.prn  copy voya*.prn autoacc5.rpt /y
-
-rem ---------- Do some cleaning up ----------
-:: del /F ..\%1\hov2m%_prev_%am.skm
-:: del /F ..\%1\hov2m%_prev_%op.skm
-:: del /F ..\%1\hov3m%_prev_%am.skm
-:: del /F ..\%1\hov3m%_prev_%op.skm
-:: del /F ..\%1\tppl*.*
+if exist PT_NetProcess_PT.rpt  del PT_NetProcess_PT.rpt 
+start /w Voyager.exe  ..\scripts\PT_NetProcess_PT.s /start -Pvoya -S..\%1
+if errorlevel 2 goto error
+if exist voya*.prn  copy voya*.prn PT_NetProcess_PT.rpt /y
 
 CD..
 
@@ -73,32 +46,32 @@ if %useMDP%==T goto Parallel_Processing
 @echo Start Transit Skims
 REM   If only one CPU, run the four skims sequentially
 
-START /wait Transit_Skim_LineHaul_Parallel.bat %1 CR 
+START /wait Transit_Skim_LineHaul_Parallel_PT.bat %1 CR 
 
 REM  Transit Network Building (Final) Metrorail
-START /wait Transit_Skim_LineHaul_Parallel.bat %1 MR 
+START /wait Transit_Skim_LineHaul_Parallel_PT.bat %1 MR 
 
 REM  Transit Network Building (Final) All Bus
-START /wait Transit_Skim_LineHaul_Parallel.bat %1 AB 
+START /wait Transit_Skim_LineHaul_Parallel_PT.bat %1 AB 
 
 REM  Transit Network Building (Final) Bus+MetroRail
-START /wait Transit_Skim_LineHaul_Parallel.bat %1 BM  
+START /wait Transit_Skim_LineHaul_Parallel_PT.bat %1 BM  
 
 goto Transit_Skims_Are_Done
 
 :Parallel_Processing
 @echo Start Transit Skim - Parallel
 
-START Transit_Skim_LineHaul_Parallel.bat %1 CR 
+START Transit_Skim_LineHaul_Parallel_PT.bat %1 CR 
 
 REM  Transit Network Building (Final) Metrorail
-START Transit_Skim_LineHaul_Parallel.bat %1 MR 
+START Transit_Skim_LineHaul_Parallel_PT.bat %1 MR 
 
 REM  Transit Network Building (Final) All Bus
-START Transit_Skim_LineHaul_Parallel.bat %1 AB 
+START Transit_Skim_LineHaul_Parallel_PT.bat %1 AB 
 
 REM  Transit Network Building (Final) Bus+MetroRail
-START /wait Transit_Skim_LineHaul_Parallel.bat %1 BM  
+START /wait Transit_Skim_LineHaul_Parallel_PT.bat %1 BM  
 
 :Transit_Skims_Are_Done
 
@@ -128,15 +101,27 @@ REM @type MR.txt
 REM @type AB.txt
 REM @type BM.txt
 
-REM CD %1
-REM  Transit Network Accessibility File developement (For Demographic Models)
+:: if exist voya*.*  del voya*.*
+:: if exist MFare2_PT.rpt  del MFare2_PT.rpt 
+:: start /w Voyager.exe  ..\scripts\MFare2_PT.s /start -Pvoya -S..\%1
+:: if errorlevel 2 goto error
+:: if exist voya*.prn  copy voya*.prn MFare2_PT.rpt /y
+
+if exist voya*.*  del voya*.*
+if exist Post_Skim_PT.rpt  del Post_Skim_PT.rpt 
+start /w Voyager.exe  ..\scripts\Post_Skim_PT.s /start -Pvoya -S..\%1
+if errorlevel 2 goto error
+if exist voya*.prn  copy voya*.prn Post_Skim_PT.rpt /y
 
 if exist voya*.*  del voya*.*
 if exist %_iter_%_TRANSIT_Accessibility.RPT  del %_iter_%_TRANSIT_Accessibility.RPT
 start /w Voyager.exe  ..\scripts\transit_Accessibility.s /start -Pvoya -S..\%1
 if errorlevel 2 goto error
 if exist voya*.prn  copy voya*.prn %_iter_%_TRANSIT_Accessibility.RPT /y
+
 goto end
+
+
 :error
 REM  Processing Error......
 PAUSE
