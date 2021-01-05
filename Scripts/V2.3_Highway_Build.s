@@ -173,6 +173,7 @@ LOOKUP LOOKUPI=2, NAME=lktaz,
 _ABJoined = A*100000 + B
 
 ;; Ensure Centroids have lanes coded
+IF (MODE <> 0) DELETE
 
 IF (A<= 3722 || B <= 3722)
               SCREEN   =0     ; Screenline Code   (1-36)
