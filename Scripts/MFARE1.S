@@ -5,9 +5,10 @@
 ;   Walk and Drive Access Metrorail Sta. to Sta. fares developed
 ;    for AM Peak and off-peak periods
 ;
-;   Programmer: Milone
-;   Date:      1/11/07
+;   Programmer: Milone; fxie
+;   Date:      1/11/07; 7/8/20
 ;   Metro station XY file name corrected (12/13/2006)
+;   Export station-to-station AM/OP farematrix (7/8/2020)
 ;=================================================================
 ;
 
@@ -30,6 +31,7 @@ OP_Sta_Fares    = 'OP_Metrorail_Fares.TXT'      ;  Output OP Statio-to-Station F
 RUN PGM=MATRIX
 ZONES=@STATSIZE@
 read FILE=@MSTA_Tariff@
+MATO[1]=Metrorail_Fare.mat, mo=100,200
 
 ;
 ; Set up zone arrays for accumulating I/O variables
@@ -137,7 +139,7 @@ read FILE=@MSTA_Tariff@
 
 ;     Apply AM station discounts if used
                     FinAMFare = FinAMFare - StaDSC(1,I) - StaDsc(1,J)
-
+					MW[100]   = FinAMFare*0.01
 ;     Compute IJ Index so station-to-station fares can be read in as a lookup
 ;     Index merges separate I/J numbers into one number (index for  station 1 to station 1 is '1001')
                     IJindex = (I * 1000.0)  + J
@@ -195,7 +197,7 @@ read FILE=@MSTA_Tariff@
 
 ;     Apply Off-pk station discounts if used
                     FinOPFare = FinOPFare - StaDSC(2,I) - StaDsc(2,J)
-
+					MW[200]   = FinOPFare*0.01
 ;     Compute IJ Index so station-to-station fares can be read in as a lookup
 ;     Index merges separate I/J numbers into one number (index for  station 1 to station 1 is '1001')
                     IJindex = (I * 1000.0)  + J
@@ -215,6 +217,28 @@ read FILE=@MSTA_Tariff@
      ENDIF
     ENDJLOOP
    endif
+ENDRUN
+
+;==============================================================
+; Read VRE FARES IN A FAREZONE MATRIX                         =
+;==============================================================
+
+RUN PGM=MATRIX 
+FILEI MATI=Inputs\VRE_Fare.DAT PATTERN=IJ:V FIELDS=#1,0,2-10
+FILEO MATO=VRE_Fare.mat MO=1 
+PAR ZONES=9 
+MW[1]=mi.1.1
+ENDRUN
+
+;==============================================================
+; Read MARC FARES IN A FAREZONE MATRIX                         =
+;==============================================================
+
+RUN PGM=MATRIX 
+FILEI MATI=Inputs\MARC_Fare.DAT PATTERN=IJ:V FIELDS=#1,0,2-51
+FILEO MATO=MARC_Fare.mat MO=1 
+PAR ZONES=50 
+MW[1]=mi.1.1
 ENDRUN
 
 
