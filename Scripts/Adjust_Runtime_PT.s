@@ -25,17 +25,17 @@ Loop PRD = 1,2       ;Loop through 1>AM and 2>OP periods
      RUN PGM=MATRIX
      ZONES = 1
  
-     FILEI RECI="inputs\MODE@MOD@@PER@.TB",Fields=1-3
+     FILEI RECI="inputs\MODE@MOD@@PER@.LIN",Fields=1-3
  
      StrONE = substr(reci,1,7),
-     Str1   = substr(reci,8,24),
-     StrRUN = substr(reci,32,8),
-     StrRTV = substr(reci,40,3),
-     StrCma = substr(reci,43,1),
-     Str2   = substr(reci,44,150)
+     Str1   = substr(reci,8,27),
+     StrRUN = substr(reci,35,8),
+     StrRTV = substr(reci,43,3),
+     StrCma = substr(reci,46,1),
+     Str2   = substr(reci,47,150)
     ;
     ; First make sure that the RUNTIME value is where we expect- 
-    ; If the"ONEWAY=" String is in cols 1-7 then we expect that "RUNTIME=" is in cols 32-39 and a ',' is in col 43. 
+    ; If the"ONEWAY=" String is in cols 1-7 then we expect that "RUNTIME=" is in cols 35-42 and a ',' is in col 46. 
     ; Otherwise ABORT! Note: We will allow condition that StrRUN,StrRTV and StrCma are all blank, to allow 'RT=' in Node strings
 	; The ltrim() function gets rid of the leading spaces of a string.	
     
@@ -109,12 +109,12 @@ Loop PRD = 1,2       ;Loop through 1>AM and 2>OP periods
     FILEI RECI="inputs\MODE@MOD@@PER@.TB",Fields=1-3
 
 
-    StrONE = substr(reci,1,7),
-    Str1   = substr(reci,8,24),
-    StrRUN = substr(reci,32,8),
-    StrRTV = substr(reci,40,3),
-    StrCma = substr(reci,43,1),
-    Str2   = substr(reci,44,150)
+     StrONE = substr(reci,1,7),
+     Str1   = substr(reci,8,27),
+     StrRUN = substr(reci,35,8),
+     StrRTV = substr(reci,43,3),
+     StrCma = substr(reci,46,1),
+     Str2   = substr(reci,47,150)
 
 
    Factor          = @Per@@InOut@_Ftr
