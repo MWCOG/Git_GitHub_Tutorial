@@ -1,10 +1,9 @@
-:: Z:\ModelRuns\fy20\CGV2_3_82\run_Model_2014.bat
-:: Version 2.3.82
-:: 9/12/2019 12:03:40 PM
+:: Version 2.4_PT
+:: 1/11/2021
 
 set root=.
-set scenar=2018
-set runbat=run_ModelSteps_2018.bat
+set scenar=2014
+set runbat=run_ModelSteps_2014_Final.bat
 :: Environment variables for (multistep) distributed processing:
 :: Environment variables for (intrastep) distributed processing:
 ::     use MDP = t/f (for true or false)
