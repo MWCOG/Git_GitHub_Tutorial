@@ -1,12 +1,11 @@
-:: Z:\ModelRuns\fy19\V2.3_Development\run_ModelSteps_2019_Final.bat
-:: Version 2.3.75
-:: 9/28/2018 9:46:03 AM
+:: Version 2.4_PT
+:: 1/11/2021
 
 
-:: Version 2.3 TPB Travel Model on 3722 TAZ System
+:: Version 2.4_PT TPB Travel Model on 3722 TAZ System
 
 set _year_=2019
-set _alt_=Ver2.3.75_2019_Final
+set _alt_=Ver2.4_PT_2019_Final
 :: Maximum number of user equilibrium iterations used in traffic assignment
 :: User should not need to change this.  Instead, change _relGap_ (below)
 set _maxUeIter_=1000
@@ -31,21 +30,21 @@ call ArcPy_Walkshed_Process.bat %1
 call Set_CPI.bat                %1
 call PP_Highway_Build.bat       %1
 call PP_Highway_Skims.bat       %1
-call Transit_Skim_All_Modes_Parallel.bat %1
-call Trip_Generation.bat        %1
-call Trip_Distribution.bat      %1
-call PP_Auto_Drivers.bat        %1
-call Time-of-Day.bat            %1
-call Highway_Assignment_Parallel.bat     %1
-call Highway_Skims.bat          %1
+call Transit_Fare_PT.bat           %1
+::   call Transit_Skim_All_Modes_Parallel.bat %1
+::   call Trip_Generation.bat        %1
+::   call Trip_Distribution.bat      %1
+::   call PP_Auto_Drivers.bat        %1
+::   call Time-of-Day.bat            %1
+::   call Highway_Assignment_Parallel.bat     %1
+::   call Highway_Skims.bat          %1
 
 :: rem ====== Iteration 1 ===================================================
 
 set _iter_=i1
 set _prev_=pp
 
-call Transit_Skim_All_Modes_Parallel.bat %1
-call Transit_Fare.bat           %1
+call Transit_Skim_All_Modes_Parallel_PT.bat %1
 call Trip_Generation.bat        %1
 call Trip_Distribution.bat      %1
 call Mode_Choice_Parallel.bat            %1
@@ -59,8 +58,7 @@ call Highway_Skims.bat          %1
 set _iter_=i2
 set _prev_=i1
 
-call Transit_Skim_All_Modes_Parallel.bat %1
-call Transit_Fare.bat           %1
+call Transit_Skim_All_Modes_Parallel_PT.bat %1
 call Trip_Generation.bat        %1
 call Trip_Distribution.bat      %1
 call Mode_Choice_Parallel.bat            %1
@@ -76,8 +74,7 @@ set _iter_=i3
 set _prev_=i2
 set _relGap_=0.001
 
-call Transit_Skim_All_Modes_Parallel.bat %1
-call Transit_Fare.bat           %1
+call Transit_Skim_All_Modes_Parallel_PT.bat %1
 call Trip_Generation.bat        %1
 call Trip_Distribution.bat      %1
 call Mode_Choice_Parallel.bat            %1
@@ -93,8 +90,7 @@ set _iter_=i4
 set _prev_=i3
 set _relGap_=0.0001
 
-call Transit_Skim_All_Modes_Parallel.bat %1
-call Transit_Fare.bat           %1
+call Transit_Skim_All_Modes_Parallel_PT.bat %1
 call Trip_Generation.bat        %1
 call Trip_Distribution.bat      %1
 call Mode_Choice_Parallel.bat            %1
@@ -108,7 +104,7 @@ call Highway_Skims.bat          %1
 @echo Starting Transit Assignment Step
 @date /t & time/t
 
-call Transit_Assignment_Parallel.bat %1
+call Transit_Assignment_Parallel_PT.bat %1
 call TranSum.bat %1
 
 

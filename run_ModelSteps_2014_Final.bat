@@ -1,9 +1,11 @@
-:: Version 2.3.82
-:: 9/12/2019 12:03:48 PM
-:: Version 2.3 TPB Travel Model on 3722 TAZ System
+:: Version 2.4_PT
+:: 1/11/2021
+
+
+:: Version 2.4_PT TPB Travel Model on 3722 TAZ System
 
 set _year_=2014
-set _alt_=Ver2.3.82_2019
+set _alt_=Ver2.4_PT_2014
 :: Maximum number of user equilibrium iterations used in traffic assignment
 :: User should not need to change this.  Instead, change _relGap_ (below)
 set _maxUeIter_=1000
@@ -24,7 +26,7 @@ set _iter_=pp
 set _prev_=pp
 set _relGap_=0.01
 
-::call ArcPy_Walkshed_Process.bat %1
+call ArcPy_Walkshed_Process.bat %1
 call Set_CPI.bat                %1
 call PP_Highway_Build.bat       %1
 call PP_Highway_Skims.bat       %1
