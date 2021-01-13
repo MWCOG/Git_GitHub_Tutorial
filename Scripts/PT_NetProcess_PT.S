@@ -105,15 +105,15 @@ pre='%_prev_%'   ;*RJM*
 ;; ************* Combine Transit Lines ***************
 
 ; combine bus/streetcar lines 1,2,6,7,8,9,10 (non-rail modes) to AM_Bus_Lines.lin
-*copy "Inputs\Mode1@TIME_PERIOD@.lin" + "Inputs\Mode2@TIME_PERIOD@.lin" + "Inputs\Mode6@TIME_PERIOD@.lin" +
-   "Inputs\Mode7@TIME_PERIOD@.lin" + "Inputs\Mode8@TIME_PERIOD@.lin" + "Inputs\Mode9@TIME_PERIOD@.lin" +
-   "Inputs\Mode10@TIME_PERIOD@.lin"  "@TIME_PERIOD@_Bus_Lines.lin"
+*copy "Mode1@TIME_PERIOD@.lin" + "Mode2@TIME_PERIOD@.lin" + "Mode6@TIME_PERIOD@.lin" +
+   "Mode7@TIME_PERIOD@.lin" + "Mode8@TIME_PERIOD@.lin" + "Mode9@TIME_PERIOD@.lin" +
+   "Mode10@TIME_PERIOD@.lin"  "@TIME_PERIOD@_Bus_Lines.lin"
 
 ; combine Metro and LRT 3,5 lines to @TIME_PERIOD@_MRL_Lines.lin
-*copy "Inputs\Mode3@TIME_PERIOD@.lin" + "Inputs\Mode5@TIME_PERIOD@.lin"   "@TIME_PERIOD@_MRL_Lines.lin"
+*copy "Mode3@TIME_PERIOD@.lin" + "Mode5@TIME_PERIOD@.lin"   "@TIME_PERIOD@_MRL_Lines.lin"
 
 ; combine (copy) the commuter rail (mode 3) line to @TIME_PERIOD@_CRL_Lines.lin
-*copy "Inputs\Mode4@TIME_PERIOD@.lin"  "@TIME_PERIOD@_CRL_Lines.lin"
+*copy "Mode4@TIME_PERIOD@.lin"  "@TIME_PERIOD@_CRL_Lines.lin"
 
 
 ;
@@ -945,12 +945,12 @@ ENDRUN
 ;; ************* Combine Transit Lines ***************
 
 ; combine bus/streetcar lines 1,2,6,7,8,9,10 (non-rail modes) to AM_Bus_Lines.lin
-*copy "Inputs\Mode1@TIME_PERIOD@.lin" + "Inputs\Mode2@TIME_PERIOD@.lin" + "Inputs\Mode6@TIME_PERIOD@.lin" +
-   "Inputs\Mode7@TIME_PERIOD@.lin" + "Inputs\Mode8@TIME_PERIOD@.lin" + "Inputs\Mode9@TIME_PERIOD@.lin" +
-   "Inputs\Mode10@TIME_PERIOD@.lin"  "@TIME_PERIOD@_Bus_Lines.lin"
+*copy "Mode1@TIME_PERIOD@.lin" + "Mode2@TIME_PERIOD@.lin" + "Mode6@TIME_PERIOD@.lin" +
+   "Mode7@TIME_PERIOD@.lin" + "Mode8@TIME_PERIOD@.lin" + "Mode9@TIME_PERIOD@.lin" +
+   "Mode10@TIME_PERIOD@.lin"  "@TIME_PERIOD@_Bus_Lines.lin"
 
 ; combine Metro and LRT 3,5 to @TIME_PERIOD@_MRL_Lines.lin
-*copy "Inputs\Mode3@TIME_PERIOD@.lin" + "Inputs\Mode5@TIME_PERIOD@.lin"   "@TIME_PERIOD@_MRL_Lines.lin"
+*copy "Mode3@TIME_PERIOD@.lin" + "Mode5@TIME_PERIOD@.lin"   "@TIME_PERIOD@_MRL_Lines.lin"
 
 
 ;; *********************************
