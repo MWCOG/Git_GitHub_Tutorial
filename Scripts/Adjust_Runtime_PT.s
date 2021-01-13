@@ -26,16 +26,16 @@ Loop PRD = 1,2       ;Loop through 1>AM and 2>OP periods
      ZONES = 1
  
      FILEI RECI="inputs\MODE@MOD@@PER@.LIN",Fields=1-3
- 
-     StrONE = substr(reci,1,7),
-     Str1   = substr(reci,8,27),
-     StrRUN = substr(reci,35,8),
-     StrRTV = substr(reci,43,3),
-     StrCma = substr(reci,46,1),
-     Str2   = substr(reci,47,150)
+	 StrOper= substr(reci,1,12),
+     StrONE = substr(reci,13,7),
+     Str1   = substr(reci,20,27),
+     StrRUN = substr(reci,47,8),
+     StrRTV = substr(reci,55,3),
+     StrCma = substr(reci,58,1),
+     Str2   = substr(reci,59,150)
     ;
     ; First make sure that the RUNTIME value is where we expect- 
-    ; If the"ONEWAY=" String is in cols 1-7 then we expect that "RUNTIME=" is in cols 35-42 and a ',' is in col 46. 
+    ; If the"ONEWAY=" String is in cols 13-19 then we expect that "RUNTIME=" is in cols 47-54 and a ',' is in col 58. 
     ; Otherwise ABORT! Note: We will allow condition that StrRUN,StrRTV and StrCma are all blank, to allow 'RT=' in Node strings
 	; The ltrim() function gets rid of the leading spaces of a string.	
     
@@ -45,9 +45,9 @@ Loop PRD = 1,2       ;Loop through 1>AM and 2>OP periods
 
 
     IF ((StrONE == 'ONEWAY=') && (StrRUN != 'RUNTIME=' && StrCma != ','))  ; If 'Runtime=' and 'comma' strings are not in the expected place
-        List=' ONEWAY= is IN cols 1-7 but RUNTIME= is NOT IN cols 32-39 and/or comma is NOT IN col 43, so I QUIT! ' 
+        List=' ONEWAY= is IN cols 13-19 but RUNTIME= is NOT IN cols 47-54 and/or comma is NOT IN col 58, so I QUIT! ' 
         LIST='ONEWAY=                        RUNTIME=   ,'
-        LIST=StrONE,Str1,StrRUN,StrRTV,StrCma,Str2 
+        LIST=StrOper,StrONE,Str1,StrRUN,StrRTV,StrCma,Str2 
         ABORT
     ENDIF
 
@@ -106,27 +106,27 @@ Loop PRD = 1,2       ;Loop through 1>AM and 2>OP periods
 
 
     ;;inputs\MODE@MOD@@PER@.TB",Fields=1-3
-    FILEI RECI="inputs\MODE@MOD@@PER@.TB",Fields=1-3
+    FILEI RECI="inputs\MODE@MOD@@PER@.LIN",Fields=1-3
 
-
-     StrONE = substr(reci,1,7),
-     Str1   = substr(reci,8,27),
-     StrRUN = substr(reci,35,8),
-     StrRTV = substr(reci,43,3),
-     StrCma = substr(reci,46,1),
-     Str2   = substr(reci,47,150)
+	 StrOper= substr(reci,1,12),
+     StrONE = substr(reci,13,7),
+     Str1   = substr(reci,20,27),
+     StrRUN = substr(reci,47,8),
+     StrRTV = substr(reci,55,3),
+     StrCma = substr(reci,58,1),
+     Str2   = substr(reci,59,150)
 
 
    Factor          = @Per@@InOut@_Ftr
-   FILEO PRINTO[1] = "MODE@MOD@@PER@.TB"
+   FILEO PRINTO[1] = "MODE@MOD@@PER@.LIN"
 
    IF (StrONE == 'ONEWAY=' && StrRUN== 'RUNTIME=' && StrCma == ',') ; If Runtime= and comma exists in the expected place
        RUNTIME_IN  = val(StrRTV)           ; convert RUNTIME 'string' into numeric variable
        RUNTIME_OUT = RUNTIME_IN * Factor   ; factored Factor numeric value
-       Print LIST=StrONE,Str1,StrRUN,RUNTIME_OUT(4.1),StrCma,Str2,'                         ; Base RUNTIME= ',RUNTIME_IN,' Time Factor: ',Factor(5.3),' Year: ','@ModeledYear@', Printo = 1
+       Print LIST=StrOper,StrONE,Str1,StrRUN,RUNTIME_OUT(4.1),StrCma,Str2,'             ; Base RUNTIME= ',RUNTIME_IN,' Time Factor: ',Factor(5.3),' Year: ','@ModeledYear@', Printo = 1
 ,Printo =1
     ELSE
-      Print LIST=StrONE,Str1,StrRUN,StrRTV,StrCma,Str2, Printo = 1
+      Print LIST=StrOper,StrONE,Str1,StrRUN,StrRTV,StrCma,Str2, Printo = 1
    ENDIF
 
 ENDRUN
