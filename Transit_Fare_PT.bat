@@ -4,7 +4,18 @@
 :: rqn Add script V2.5_PTNet_Build.s to build PT Network as part of the model
 CD %1
 
-::copy transit lines and support files from the inputs subdir. 
+::copy transit line files from the inputs subdir. 
+copy inputs\Mode*.lin /y
+
+:: adjust local bus run times by applying bus speed degradation factors.
+:: (Added 1/13/21 by fxie)
+if exist voya*.*  del voya*.*
+if exist Adjust_Runtime.rpt  del Adjust_Runtime.rpt 
+start /w Voyager.exe  ..\scripts\Adjust_Runtime_PT.s /start -Pvoya -S..\%1
+if errorlevel 1 goto error
+if exist voya*.prn  copy voya*.prn Adjust_Runtime.rpt /y
+
+::copy transit support files from the inputs subdir. 
 copy inputs\*.TB /y
 copy inputs\mfare1.a1 /y
 

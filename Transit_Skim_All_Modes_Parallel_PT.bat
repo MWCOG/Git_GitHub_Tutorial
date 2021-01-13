@@ -9,15 +9,6 @@
 
 CD %1
 
-::adjust local bus run times by applying bus speed degradation factors.
-:: (Added 5/18/20 by fxie)
-:: if exist voya*.*  del voya*.*
-:: if exist Adjust_Runtime.rpt  del Adjust_Runtime.rpt 
-:: start /w Voyager.exe  ..\scripts\Adjust_Runtime_PT.s /start -Pvoya -S..\%1
-:: if errorlevel 1 goto error
-:: if exist voya*.prn  copy voya*.prn Adjust_Runtime.rpt /y
-
-::  
 ::develop PT network building process to include updating the transit speeds
 :: (Added 4/24/19)  
 if exist voya*.*  del voya*.*
