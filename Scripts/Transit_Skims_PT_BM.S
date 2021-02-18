@@ -191,9 +191,9 @@ PROCESS PHASE=SKIMIJ
  MW[22] = TIMEA(0,22,23,24,25,33,34,35,44,45,55),;----  other walk time ( min) ;differentiate walk access time (from/to zone centroids) and other walk time. fxie@2/13/2020, MW[9]=MW[21]+MW[22]
  MW[23] = MW[14] + MW[15] + MW[16] + MW[17] + MW[18] + MW[19] - 1, ;---- no. of transfers fxie@2/13/2020
  MW[24] = XFERPENA(0, ALLMODES),				;---- transfer penalty for transit and non-transit modes ( min). Please note in TRNBUILD, XPEN applies to modes 1-16, including both transit and non-transit modes
- MW[25] = TIMEA(0,15),                          ;---- PNR time ( min). Please note TRNBUILD uses TIME(15)
- MW[26] = DIST(0,15)                           ;---- PNR cost( cents). Please note that although the DIST() function is used, the distance of Mode 15 links has been overridden with
-												;     parking cost (in cents) in PT_NetProcess_PT.S, which is consistent with the TRNBUILD skimming process.
+ MW[25] = 0,
+ MW[26] = 0
+
 
 ;---- perform adjustments to skims consistent with the Ver. 2.5 Post_Skim_PT process ----
 
@@ -235,13 +235,99 @@ PROCESS PHASE=SKIMIJ
 ENDPROCESS 
 ENDRUN
 
-
 ;;
-;;  Step 3: Generate skim files (.skm/.ttt) and fare files (.far) for CR|MR|AB|BM submodes. -fxie@9/17/2020
+;;
+;; Step 3: rerun Step 1 and Step 2 to derive the skims of PNR transfer time and PNR parking cost
+;;
+;;
+IF(ACCESS=2)
+
+RUN PGM = PUBLIC TRANSPORT
+FILEI NETI = "@itr@_@TIME_PERIOD@_PT_BM.NET"
+FILEO ROUTEO[1] = "@itr@_@TIME_PERIOD@_@ACCESS_MODE@_BM_ALT.RTE"
+FILEO REPORTO = "@itr@_PT_Skims_@TIME_PERIOD@_@ACCESS_MODE@_BM_ALT.PRN"
+FILEO NETO = "@itr@_@TIME_PERIOD@_@ACCESS_MODE@_BM_ALT.NET"
+;--------
+
+;--------
+;Input ModeAccess specific factors
+FILEI FACTORI[1] = "Inputs\AM_TRN.FAC"
+FILEI SYSTEMI = "Inputs\TSYSD.PTS"
+
+;---- Non-Transit legs  ----
+FILEI NTLEGI[1] = "WEGR_@TIME_PERIOD@.LEG"
+FILEI NTLEGI[2] = "XFER_@TIME_PERIOD@.LEG"
+FILEI NTLEGI[3] = "PNR_@TIME_PERIOD@_ALT.LEG"
+;
+; Fare System Definition
+FILEI FAREI = INPUTS\FARE_@TIME_PERIOD@.DAT
+FILEI FAREMATI[1] = Metrorail_Fare.mat
+FILEI FAREMATI[2] = VRE_Fare.mat
+FILEI FAREMATI[3] = MARC_Fare.mat
+
+;---- Transit modes (1 to 10 except commuter rail)  ----
+
+FILEI LINEI[1] = "@TIME_PERIOD@_Bus_Lines.lin"      ; Read in bus line file for "MR" mode
+
+FILEI LINEI[2] = "@TIME_PERIOD@_MRL_Lines.lin"   ; Read in Metrorail line file for "MR" mode
+
+; FILEI LINEI[3] = "@TIME_PERIOD@_CRL_Lines.lin"    ; Read in commuter rail line file for "MR" mode
+
+zonemsg=50
+
+; OVERALL PARAMETERS OF RUN
+PARAMETERS FARE=T, HDWAYPERIOD=1,NOROUTEERRS=999999,
+           NOROUTEMSGS=999999,SKIPBADLINES=Y,
+           TRANTIME=LI.TRANTIME
+
+REPORT LINES=T
+
+PROCESS PHASE=DATAPREP
+    GENERATE READNTLEGI=1
+    GENERATE READNTLEGI=2
+    GENERATE READNTLEGI=3
+ENDPROCESS
+ENDRUN
+;;
+
+RUN PGM = PUBLIC TRANSPORT
+
+FILEI NETI = "@itr@_@TIME_PERIOD@_@ACCESS_MODE@_BM_ALT.NET"
+FILEI ROUTEI = "@itr@_@TIME_PERIOD@_@ACCESS_MODE@_BM_ALT.RTE"
+FILEO REPORTO = "@itr@_@TIME_PERIOD@_@ACCESS_MODE@_BM_SKIM_ALT.PRN"
+FILEO MATO[1] = "@itr@_@TIME_PERIOD@_@ACCESS_MODE@_BM_SKM_ALT.TMP", MO=2-3					
+
+; Fare System Definition
+FILEI FAREI = INPUTS\FARE_@TIME_PERIOD@.DAT
+FILEI FAREMATI[1] = Metrorail_Fare.mat
+FILEI FAREMATI[2] = VRE_Fare.mat
+FILEI FAREMATI[3] = MARC_Fare.mat
+
+zonemsg=50
+PARAMETERS FARE=T, HDWAYPERIOD=1,NOROUTEERRS=999999,
+           NOROUTEMSGS=999999,SKIPBADLINES=Y,
+           TRANTIME=LI.TRANTIME
+
+
+PROCESS PHASE=SKIMIJ
+;---- specify output skims ----
+
+ MW[1] = DIST(0,19),						  ; PNRParkingCost+PNRXferTime/100
+ MW[2] = INT(MW[1])    		       	 	      ; PNRParkingCost in cents
+ MW[3] = (MW[1]-MW[2])*100         	          ; PNRXferTime in min
+ ;MW[4] = TIMEA(0,18,19)                      ; drv acc time  (min) for qc/qa only
+
+ENDPROCESS
+ENDRUN
+
+ENDIF
+;;
+;;  Step 4: Generate skim files (.skm/.ttt) and fare files (.far) for CR|MR|AB|BM submodes. -fxie@9/17/2020
 ;;
 RUN PGM = MATRIX
 ZONES=3722
 MATI[1]= "@itr@_@TIME_PERIOD@_@ACCESS_MODE@_BM_SKM.TMP"
+@PNR_MODEL@MATI[2]= "@itr@_@TIME_PERIOD@_DR_BM_SKM_ALT.TMP"
 MATO[1]=%_iter_%_@TIME_PERIOD@_@ACCESS_MODE@_BM.SKM, MO = 101-126,
 		NAME = IVTLB, IVTXB, IVTMR, IVTCR, IVTLR, IVTBR, IWAIT, XWAIT, WALKT, DRVACCT, FARE, DRVACCD, PNRCOST, BRDLB, BRDXB, BRDMR, BRDCR, BRDLR, BRDBR, TOTTT, WALKACCT, WALKOTHT,XFERS, XFERPEN, PNRT,PNRC
 
@@ -258,6 +344,7 @@ MATO[2]=%_iter_%_@TIME_PERIOD@_@ACCESS_MODE@_BM.ttt, MO = 120,NAME = sumtrntm
 MATO[3]=%_iter_%_@TIME_PERIOD@_@ACCESS_MODE@_BM.FAR, MO = 111,NAME = FARE
 
 FILLMW MW[1]=MI.1.1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26
+@PNR_MODEL@FILLMW MW[201]=MI.2.1,2
 
 ; BM
 MW[100]=(MW[3] + MW[5])*(MW[1] + MW[2] + MW[6]) ; if either Metro/LRT time or bus time is zero, this Bus/Metro indicator becomes zero.
@@ -274,6 +361,9 @@ ELSE
    MW[111] = MW[11] MW[112] = MW[12] MW[113] = MW[13] MW[114] = MW[14] MW[115] = MW[15]
    MW[116] = MW[16] MW[117] = MW[17] MW[118] = MW[18] MW[119] = MW[19] MW[120] = MW[20]
    MW[121] = MW[21] MW[122] = MW[22] MW[123] = MW[23] MW[124] = MW[24] MW[125] = MW[25] MW[126] = MW[26]   
+@PNR_MODEL@MW[125]=MW[202]
+@PNR_MODEL@MW[126]=MW[201]
+   
 ENDIF
 ENDJLOOP
 
