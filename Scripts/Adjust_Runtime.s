@@ -7,10 +7,43 @@
 *del Mode8OP.TP 
 
 ;==========================================================================================
-; First loop through AM/OP and Mode 1,6,8 Line files
+; First loop through AM/OP and all Mode files
+; To make sure each row in the Mode files does not exceed 144 columns
+; Network staff pointed out that the transit skimming script will report
+; an error when the route specifications (such as nodes) go beyond column 144, and that
+; If the error had been on the last row of the mode file, the route would have been 
+; truncated and staff would not have known it
+;==========================================================================================
+
+Loop PRD = 1,2       ;Loop through 1>AM and 2>OP periods
+  Loop MOD = 1,10       ; Loop through Modes 1-10
+
+    IF (PRD = 1) PER = 'AM'
+    IF (PRD = 2) PER = 'OP'
+
+     RUN PGM=MATRIX
+     ZONES = 1
+ 
+     FILEI RECI="inputs\MODE@MOD@@PER@.TB"
+
+	lineno = reci.RECNO
+    IF (strlen(reci)>144)
+        List= 'I quit! Number of columns in Mode@MOD@@PER@.TB file exceeds the limit of 144. Please check Line ', lineno(5.0),':',reci
+		ABORT
+    ENDIF
+	
+ ENDRUN
+ENDLOOP
+
+ENDLOOP
+
+
+;==========================================================================================
+; Then loop through AM/OP and Mode 1,6,8 Line files
 ; To make sure the line with RUNTIMES are as expected (ABORT if that's not the case)
 ;
 ;==========================================================================================
+
 
 Loop PRD = 1,2       ;Loop through 1>AM and 2>OP periods
   Loop LBMODE = 1,3       ; Loop through local Bus modes 1>Mode 1, 2>Mode 6 and 3> Mode 8
