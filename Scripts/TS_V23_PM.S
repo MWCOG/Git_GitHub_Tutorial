@@ -510,13 +510,13 @@ PHASE=ILOOP
    IF (i=FirstZone)
      LINKLOOP
        ; Initial Iteration LINK IMPEDANCE (HIGHWAY TIME + Equiv.Toll/Time) by vehicle type here:
-         LW.SOV@PRD@IMP = TIME    + LI.TIMEPEN + (LW.SOV@PRD@TOLL/100.0)* SV@PRD@EQM ;SOV   IMP
-         LW.HV2@PRD@IMP = TIME    + LI.TIMEPEN + (LW.HV2@PRD@TOLL/100.0)* H2@PRD@EQM ;HOV 2 IMP
-;        LW.HV3@PRD@IMP = TIME    + LI.TIMEPEN + (LW.HV3@PRD@TOLL/100.0)* H3@PRD@EQM ;HOV 3+IMP
-;;-->>   LW.HV3@PRD@IMP = TIME    + LI.TIMEPEN + (LW.HV3@PRD@TOLL/100.0)* H3@PRD@EQM ;HOV 3+IMP
-         LW.CV@PRD@IMP  = TIME    + LI.TIMEPEN + (LW.CV@PRD@TOLL/100.0) * CV@PRD@EQM ;CV    IMP
-         LW.TRK@PRD@IMP = TIME    + LI.TIMEPEN + (LW.TRK@PRD@TOLL/100.0)* TK@PRD@EQM ;Truck IMP
-         LW.APX@PRD@IMP = TIME    + LI.TIMEPEN + (LW.APX@PRD@TOLL/100.0)* AP@PRD@EQM ;APAX  IMP
+         LW.SOV@PRD@IMP = TIME    + (LW.SOV@PRD@TOLL/100.0)* SV@PRD@EQM ;SOV   IMP
+         LW.HV2@PRD@IMP = TIME    + (LW.HV2@PRD@TOLL/100.0)* H2@PRD@EQM ;HOV 2 IMP
+;        LW.HV3@PRD@IMP = TIME    + (LW.HV3@PRD@TOLL/100.0)* H3@PRD@EQM ;HOV 3+IMP
+;;-->>   LW.HV3@PRD@IMP = TIME    + (LW.HV3@PRD@TOLL/100.0)* H3@PRD@EQM ;HOV 3+IMP
+         LW.CV@PRD@IMP  = TIME    + (LW.CV@PRD@TOLL/100.0) * CV@PRD@EQM ;CV    IMP
+         LW.TRK@PRD@IMP = TIME    + (LW.TRK@PRD@TOLL/100.0)* TK@PRD@EQM ;Truck IMP
+         LW.APX@PRD@IMP = TIME    + (LW.APX@PRD@TOLL/100.0)* AP@PRD@EQM ;APAX  IMP
 
           IF (LI.@PRD@TOLL > 0)
                PRINT LIST = 'iteration: ',iteration(3),' A: ',A(7),' B: ',B(7),
@@ -722,7 +722,7 @@ PHASE=ILOOP
    IF (i=FirstZone)
      LINKLOOP
        ; Initial Iteration LINK IMPEDANCE (HIGHWAY TIME + Equiv.Toll/Time) by vehicle type here:
-         LW.HV3@PRD@IMP = TIME    + LI.TIMEPEN + (LW.HV3@PRD@TOLL/100.0)* H3@PRD@EQM ;HOV 3+IMP
+         LW.HV3@PRD@IMP = TIME    + (LW.HV3@PRD@TOLL/100.0)* H3@PRD@EQM ;HOV 3+IMP
 
         IF (LI.@PRD@TOLL > 0)
                PRINT LIST = 'iteration: ',iteration(3),' A: ',A(7),' B: ',B(7),
