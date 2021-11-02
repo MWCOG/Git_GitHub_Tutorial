@@ -5,7 +5,7 @@ cd MD
 
 Cluster.exe mdtoll 1-8 start exit
 
-start /w Voyager.exe  ../../../scripts/TS_V23_MD.S /start -Pvoya -S./
+start /w Voyager.exe  ../../../scripts/TS_V24_MD.S /start -Pvoya -S./
 
 Cluster.exe mdtoll 1-8 close exit
 

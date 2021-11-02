@@ -5,7 +5,7 @@ cd AM
 
 Cluster.exe amtoll 1-8 start exit
 
-start /w Voyager.exe  ../../../scripts/TS_V23_AM.S /start -Pvoya -S./
+start /w Voyager.exe  ../../../scripts/TS_V24_AM.S /start -Pvoya -S./
 
 Cluster.exe amtoll 1-8 close exit
 
