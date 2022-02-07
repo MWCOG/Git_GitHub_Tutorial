@@ -56,6 +56,13 @@
 ;; KNR-access NT legs: for all mode 12,13,14,17 links that go to a station with an NCT code of 9,
 ;; make NCT9=1 and exclude those links from the generation of KNR-access NT leg by including "(lw.NCT9=1)" 
 ;; in the"EXCLUDELINK" subkeyword. 
+;;
+;; fxie 2/2/2022
+;; The values of "FROMNODE" and "TONODE" in the bus NT leg generation omitted BRT/Streetcar (mode 10) stations, which
+;; should be treated as bus stops in transit skimming. As a result, no NT legs were generated from or to BRT/Streetcar
+;; stations, and thus no transit volumes were assigned on Mode 10 lines. As a fix, all the "FROMNODE=20000-54999" and
+;; "TONODE=20000-54999" keywords were updated to "FROMNODE=10500-10999,20000-54999" and 
+;; "TONODE=10500-10999,20000-54999", respectively.
 
 ; SET VOT VALUES
   _VOTperHr = 10.00
@@ -289,7 +296,7 @@ PROCESS PHASE = LINKREAD
       COST=li.WKTIME,
       MAXCOST=10*30,
       FROMNODE=1-3675,
-      TONODE=20000-54999,
+      TONODE=10500-10999,20000-54999,
       DIRECTION = 1,
       EXCLUDELINK = (li.MODE = 1-10),   ;Mode 1 to 10 cannot be a part of non-transit path.
       MAXNTLEGS = 10*10,
@@ -322,7 +329,7 @@ RUN PGM=PUBLIC TRANSPORT
       COST=li.WKTIME,
       MAXCOST=10*30,
       FROMNODE=1-3675,
-      TONODE=20000-54999,
+      TONODE=10500-10999,20000-54999,
       DIRECTION = 2,
       EXCLUDELINK = (li.Mode = 1-10),    ;Mode 1 to 10 cannot be a part of non-transit path.
       MAXNTLEGS = 10*10,
@@ -497,8 +504,8 @@ RUN PGM=PUBLIC TRANSPORT
       NTLEGMODE = 22,
       COST=li.WKTIME,
       MAXCOST=10*15,
-      FROMNODE=20000-54999,
-      TONODE=20000-54999,
+      FROMNODE=10500-10999,20000-54999,
+      TONODE=10500-10999,20000-54999,
 	  DIRECTION = 3,
 	  EXCLUDELINK = (li.MODE = 1-10, 11,14),
       MAXNTLEGS = 3,
@@ -533,7 +540,7 @@ RUN PGM=PUBLIC TRANSPORT
       COST=li.WKTIME,
       MAXCOST=10*15,
       FROMNODE=8000-8999,
-      TONODE=20000-54999,
+      TONODE=10500-10999,20000-54999,
       DIRECTION = 2,
 	  EXCLUDELINK = (li.MODE = 1-10, 11),
       MAXNTLEGS = 10,
@@ -568,7 +575,7 @@ RUN PGM=PUBLIC TRANSPORT
       COST=li.WKTIME,
       MAXCOST=10*15,
       FROMNODE=9000-9999,
-      TONODE=20000-54999,
+      TONODE=10500-10999,20000-54999,
       DIRECTION = 2,
 	  EXCLUDELINK = (li.MODE = 1-10, 11),
       MAXNTLEGS = 10,
@@ -603,7 +610,7 @@ RUN PGM=PUBLIC TRANSPORT
       COST=li.WKTIME,
       MAXCOST=10*15,
       FROMNODE=10000-10499,
-	  TONODE=20000-54999,
+	  TONODE=10500-10999,20000-54999,
       DIRECTION = 2,
 	  EXCLUDELINK = (li.MODE = 1-10, 11),
       MAXNTLEGS = 10,
@@ -672,7 +679,7 @@ RUN PGM=PUBLIC TRANSPORT
       COST=li.WKTIME,
       MAXCOST=10*15,
       FROMNODE=8000-8999,
-      TONODE=20000-54999,
+      TONODE=10500-10999,20000-54999,
       DIRECTION = 1,
 	  EXCLUDELINK = (li.MODE = 1-10, 11),
       MAXNTLEGS = 10,
@@ -808,7 +815,7 @@ RUN PGM=PUBLIC TRANSPORT
       COST=li.WKTIME,
       MAXCOST=10*15,
       FROMNODE=9000-9999,
-      TONODE=20000-54999,
+      TONODE=10500-10999,20000-54999,
       DIRECTION = 1,
 	  EXCLUDELINK = (li.MODE = 1-10, 11),
       MAXNTLEGS = 10,
@@ -946,7 +953,7 @@ RUN PGM=PUBLIC TRANSPORT
       COST=li.WKTIME,
       MAXCOST=10*15,
       FROMNODE=10000-10499,
-	  TONODE=20000-54999,
+	  TONODE=10500-10999,20000-54999,
       DIRECTION = 1,
 	  EXCLUDELINK = (li.MODE = 1-10, 11),
       MAXNTLEGS = 10,
