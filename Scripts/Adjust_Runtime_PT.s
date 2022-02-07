@@ -1,10 +1,10 @@
 
-*del Mode1AM.TP 
-*del Mode6AM.TP 
-*del Mode8AM.TP 
-*del Mode1OP.TP 
-*del Mode6OP.TP 
-*del Mode8OP.TP 
+*del Mode1AM.LIN 
+*del Mode6AM.LIN
+*del Mode8AM.LIN 
+*del Mode1OP.LIN 
+*del Mode6OP.LIN 
+*del Mode8OP.LIN 
 
 ;==========================================================================================
 ; First loop through AM/OP and all Mode files
@@ -24,11 +24,11 @@ Loop PRD = 1,2       ;Loop through 1>AM and 2>OP periods
      RUN PGM=MATRIX
      ZONES = 1
  
-     FILEI RECI="inputs\MODE@MOD@@PER@.TB"
+     FILEI RECI="inputs\MODE@MOD@@PER@.LIN"
 
 	lineno = reci.RECNO
     IF (strlen(reci)>144)
-        List= 'I quit! Number of columns in Mode@MOD@@PER@.TB file exceeds the limit of 144. Please check Line ', lineno(5.0),':',reci
+        List= 'I quit! Number of columns in Mode@MOD@@PER@.LIN file exceeds the limit of 144. Please check Line ', lineno(5.0),':',reci
 		ABORT
     ENDIF
 	
