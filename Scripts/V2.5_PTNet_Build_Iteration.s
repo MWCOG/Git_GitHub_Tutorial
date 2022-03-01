@@ -6,6 +6,9 @@
 ; This program is executed during I2, I3 and I4 and attaches the previous iteration highway times, speeds
 ; to the PT network used in skimming/assigning
 ; (the process is similar to the V2.5_PTNet_Build.s script used in the pp and i1 iterations)
+; fxie  02-17-2022  PT_NET.NET should be built from zonehwy_unbuild.net instead of the link/node files,
+;					because the facility type, number of lanes and limit codes of many centroid connectors
+;                   have been updated when building zonehwy_unbuild.net in V2.3_Highway_Build.s
 
 *del voya*.prn
 *del PT_Net.NET
@@ -13,8 +16,9 @@
 RUN PGM = NETWORK
 ZONES=3722
 
-FILEI NODEI=Inputs\NODE.dbf
-FILEI LINKI=Inputs\LINK.dbf
+;FILEI NODEI=Inputs\NODE.dbf
+;FILEI LINKI=Inputs\LINK.dbf
+NETI=zonehwy_unbuild.net
 
 NETO=PT_NET.NET
 
