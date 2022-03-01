@@ -8,10 +8,10 @@
 ;; 12/4/12 rm added 'timepen' varible to output network
 ;;  3/13/13   timepen = 11 if screen=20 or screen = 36 zero otherwise (Bridge Ks removed in set_factors.s)
 ;;           (these are the potomac river bridges from WWB to the Harpers Ferry Bridge)
+;; 2/11/22 fxie created zonehwy_unbuild.net for unbuilding link and node files; Commented out 
+;;            "IF (MODE <> 0) DELETE" to include non-highway links; Removed non-highway links
+;;            from zonehwy_unbuild.net to create zonewhy.net, which is used in subsequent model steps
 ;;========================================================================
-
-
-
 
 ; PARAMETERS :
   ZONESIZE  =  3722                        ; Max. TAZ No.            (Param)
@@ -173,7 +173,7 @@ LOOKUP LOOKUPI=2, NAME=lktaz,
 _ABJoined = A*100000 + B
 
 ;; Ensure Centroids have lanes coded
-IF (MODE <> 0) DELETE
+; IF (MODE <> 0) DELETE
 
 IF (A<= 3722 || B <= 3722)
               SCREEN   =0     ; Screenline Code   (1-36)
@@ -254,7 +254,7 @@ ZONES=@ZONESIZE@
 
 NETI=TEMP.NET
 ; output network in TP+ format
-NETO = zonehwy.net
+NETO = zonehwy_unbuild.net
 ;
 ; Compute AM, PM, Off-Peak Tolls
 ; The tolls are read in as undeflated, based on the coded TOLL value on the
@@ -416,3 +416,14 @@ CROSSTAB VAR=_CNT,ROW=FTYPE, RANGE=1-7-1,,1-7, COL=PMLIMIT,RANGE=0-9-1,0-9
 
 ENDRUN
 
+RUN PGM = NETWORK
+
+ZONES=@ZONESIZE@
+
+NETI=zonehwy_unbuild.net
+; output network in TP+ format
+NETO = zonehwy.net
+
+IF (MODE <> 0) DELETE
+
+ENDRUN
