@@ -42,7 +42,7 @@ if exist voya*.prn  copy voya*.prn walkacc.rpt /y
 if exist voya*.*  del voya*.*
 if exist Adjust_Runtime.rpt  del Adjust_Runtime.rpt 
 start /w Voyager.exe  ..\scripts\Adjust_Runtime.s /start -Pvoya -S..\%1
-if errorlevel 1 goto error
+if errorlevel 2 goto error
 if exist voya*.prn  copy voya*.prn Adjust_Runtime.rpt /y
 
 

@@ -95,7 +95,9 @@ ENDLOOP
 ; OK, If there are no ABORTS above then all is well- now read through the 
 ; AM/OP and Mode 1,6,8 line files and factor the RUNTIME values as appropriate 
 ; with the DBF Lookup
-;
+; fxie, 5/10/22: update the process so that it looks up the bus factors for
+; both current CPI year and modeled year, and calculates the bus factors as
+; bus factors for modeled year divided by bus factors for the current CPI year
 ;==========================================================================================
 ;
 
@@ -121,7 +123,8 @@ Loop PRD = 1,2       ;Loop through 1>AM and 2>OP periods
 
     RUN PGM=MATRIX
     ZONES = 1
-
+	READ FILE=inputs\CPI_File.txt
+	
     ;; Read Bus Factors as a lookup, indexed to Model Year
     FileI LOOKUPI[1]= "inputs\Bus_Factor_File.dbf"
     LOOKUP LOOKUPI=1,  NAME=BFTR,
@@ -132,10 +135,10 @@ Loop PRD = 1,2       ;Loop through 1>AM and 2>OP periods
        INTERPOLATE=N, FAIL= 1,1,1, LIST=Y	; if "ModeledYear" is not in the range of modeled years listed in the lookup table,
 											; "FAIL=1,1,1" ensures bus run time will remain the same.
 
-       AMIB_FTR      =  BFTR(1,@ModeledYear@)
-       AMOB_FTR      =  BFTR(2,@ModeledYear@)
-       OPIB_FTR      =  BFTR(3,@ModeledYear@)
-       OPOB_FTR      =  BFTR(4,@ModeledYear@)
+       AMIB_FTR      =  BFTR(1,@ModeledYear@)/BFTR(1,CurrCPIYear)
+       AMOB_FTR      =  BFTR(2,@ModeledYear@)/BFTR(2,CurrCPIYear)
+       OPIB_FTR      =  BFTR(3,@ModeledYear@)/BFTR(3,CurrCPIYear)
+       OPOB_FTR      =  BFTR(4,@ModeledYear@)/BFTR(4,CurrCPIYear)
 
 
     ;;inputs\MODE@MOD@@PER@.TB",Fields=1-3
