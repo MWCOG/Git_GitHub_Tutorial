@@ -9,10 +9,11 @@ copy inputs\Mode*.lin /y
 
 :: adjust local bus run times by applying bus speed degradation factors.
 :: (Added 1/13/21 by fxie)
+:: Changed the errorlevel from 1 to 2 due to the CPI reading error code of 1
 if exist voya*.*  del voya*.*
 if exist Adjust_Runtime.rpt  del Adjust_Runtime.rpt 
 start /w Voyager.exe  ..\scripts\Adjust_Runtime_PT.s /start -Pvoya -S..\%1
-if errorlevel 1 goto error
+if errorlevel 2 goto error
 if exist voya*.prn  copy voya*.prn Adjust_Runtime.rpt /y
 
 ::copy transit support files from the inputs subdir. 
