@@ -13,6 +13,7 @@
 ;        5    <iter>_NHO_adr.mat
 ;;                 ... each file with 3 tabs: 1occ,2occ,3+occ auto drivers
 ; Milone:- 1/5/11
+; Correct HBW auto occ from 1.06 to 1.16
 ;--------------------------------------------------------------------
 
 ; First, establish Input/Output filenames:
@@ -38,7 +39,7 @@ IF (PURP=1)    ; HBW Loop
  MC123OCC   = '%_iter_%_HBW_adr.mat'        ;HBW Auto Drv trips- 1,2,3+ Occ.  (Output)
  PURPOSE    = 'HBW'                    ;
  Avg3P_Occ  =  3.50                    ; Avg Auto Occupancy for autos w/ 3+ person
- CarOcc     =  1.06                    ; Avg External Auto Occ.
+ CarOcc     =  1.16                    ; Avg External Auto Occ.
  adroccshr1 =  0.943806                ; assumed share of adrs that are 1 occ
  adroccshr2 =  0.054412                ;                                2 occ
  adroccshr3 =  0.001782                ;                                3+ occ
