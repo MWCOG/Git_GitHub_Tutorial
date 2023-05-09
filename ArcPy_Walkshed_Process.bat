@@ -87,7 +87,7 @@ ECHO.3) Launching ArcPy-based Walkshed Process ...
 ECHO.
 
 %python_bindir%\python.exe    ..\..\..\scripts\MWCOG_ArcPy_Walkshed_Process.py
-if errorlevel 1 goto error
+if errorlevel 3 goto error
 
 :: Copy AreaWalk.txt file
 
